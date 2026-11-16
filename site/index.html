@@ -2775,6 +2775,13 @@ function openStadium(k,scroll=true){const s=SMAP.get(k);if(!s)return;
   if(scroll)det.scrollIntoView({behavior:"smooth",block:"start"});
 }
 window.__openStadium=v=>{const k=isConfirmed(v)?normAr(v):null;if(k&&SMAP.has(k))openStadium(k);};
+/* still frame of a stadium's 3D model, used by the printable reports */
+window.__render3D=(v,w=600,h=340,az=0)=>{const k=isConfirmed(v)?normAr(v):null;const s=k&&SMAP.get(k);if(!s||!s.facts||!s.facts.model)return null;
+  const rig=document.createElement("div");rig.style.cssText="position:fixed;left:-10000px;top:0;width:"+w+"px;height:"+h+"px;pointer-events:none;visibility:hidden";
+  rig.innerHTML='<div class="v3" style="width:100%;height:100%;position:relative"><canvas style="width:100%;height:100%;display:block"></canvas><div class="v3t" hidden><button data-a="tour"></button><button data-a="reset"></button></div></div>';
+  document.body.appendChild(rig);
+  try{const v3=makeViewer(rig.querySelector(".v3"),{...s.facts.model,sky:skyOf(s)});const c=document.createElement("canvas");c.width=w;c.height=h;v3.frame(az,c.getContext("2d"),0,0,w,h);v3.destroy();return {src:c.toDataURL("image/jpeg",.86),note:s.facts.note||null,basis:s.facts.basis||null};}
+  catch(e){return null;}finally{rig.remove();}};
 function goMatch(id){if(typeof F!=="undefined"&&F!=="all"){F="all";tabs();table();}
   const r=document.querySelector(`.mr[data-mid="${id}"]`);if(!r)return;r.scrollIntoView({behavior:"smooth",block:"center"});
   r.classList.remove("flash");void r.offsetWidth;r.classList.add("flash");}
@@ -4601,6 +4608,12 @@ setTimeout(party,700);
 .gdb>div{display:grid;grid-template-columns:22mm 1fr 8mm;align-items:center;gap:1.5mm;font-size:7.6px}
 .gdt{position:relative;height:3mm;background:#ebe8e3;border-radius:2mm}.gdt i{position:absolute;top:0;bottom:0;border-radius:2mm}
 .gdb b{font-family:var(--dinc);font-size:9px;text-align:right}
+
+.gkp{position:relative}
+.gkp img.g3{width:100%;height:27mm;object-fit:cover;display:block}
+.g3b{position:absolute;top:1mm;left:1mm;background:rgba(11,18,30,.75);color:#f2d98a;font-family:var(--dinc);font-size:7px;letter-spacing:.12em;padding:.3mm 1.2mm;border-radius:2px}
+.gd.g3d{grid-template-columns:50mm 1fr}
+.g3w{position:relative;height:100%;min-height:54mm}.g3w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media print{
   @page{size:A4 portrait;margin:0}
   html,body{background:#fff!important}
@@ -4786,7 +4799,8 @@ function rMatch(){
   const tl=away?[["Day before","اليوم السابق",`${mode==="train"?"Train":"Flight"} from Madinah ${C?mins(C.air):"?"}, coach ${C?mins(C.ground):"?"} to the hotel, then training · ${mode==="train"?"قطار":"طيران"} من المدينة ثم باص للفندق ثم تدريب`],["Match day","يوم المباراة",`Coach to the ground about two hours before kick off at ${next.time||"TBC"} · الباص للملعب قبل ضربة البداية بساعتين تقريبا`]]
     :[["Match day","يوم المباراة","Squad meets at the ground about two hours before kick off · تجمع الفريق في الملعب قبل المباراة بساعتين تقريبا"],["Kick off","ضربة البداية",`${next.time||"TBC"} Saudi time · بتوقيت السعودية`]];
   const timeline=`<div class="tl">${tl.map(([e,a,d])=>`<div><i></i><b>${e}</b><span class="ar">${a}</span><p>${d}</p></div>`).join("")}</div>`;
-  const ground=`<div class="gd">${pitchTop(f)}<div class="gdi"><b>${venEn(next.venue)}</b><span class="ar">${next.venue}</span>
+  const t3=three(next.venue,520,600,.4);
+  const ground=`<div class="gd${t3?" g3d":""}">${t3?`<div class="g3w"><img src="${t3.src}" alt=""><span class="g3b">3D</span></div>`:pitchTop(f)}<div class="gdi"><b>${venEn(next.venue)}</b><span class="ar">${next.venue}</span>
      <div class="ff">${f.cap?`<span>Capacity ${f.cap} · السعة</span>`:""}${f.surface&&SURF[f.surface]?`<span>${SURF[f.surface][0]} · ${SURF[f.surface][1]}</span>`:""}${f.roof&&ROOF[f.roof]?`<span>${ROOF[f.roof][0]} · ${ROOF[f.roof][1]}</span>`:""}${f.track!=null?`<span>${f.track?"Running track · مضمار":"No running track · بدون مضمار"}</span>`:""}</div>
 </div></div>`;
   const wxBox=`<div class="wx"><div class="wxt"><b>${w.t!=null?w.t+"°C":"?"}</b><span>At kick off · وقت المباراة</span><em>${w.src==="forecast"?"Forecast · توقعات":w.src==="observed"?"Observed · مرصود":"Typical for the month and hour · المعتاد لهذا الشهر والساعة"}</em></div>${w.t!=null?`<div class="wxk">${kitSvg(w.t<=20)}<span>${w.t<=20?"Long sleeves · كم طويل":"Short sleeves · كم قصير"}</span></div>`:""}</div>`;
@@ -4800,6 +4814,7 @@ function rMatch(){
 
 /* ---------- shared pieces for the redesigned reports ---------- */
 const FT=()=>`<div class="rpF"><span>AlUla SC Match Centre · نادي العلا مركز المباريات${author()?" · "+author():""}</span><span>Source: saff.com.sa · المصدر: موقع الاتحاد السعودي لكرة القدم</span><span>Printed ${fE(today)}</span></div>`;
+const C3={};const three=(v,w=600,h=340,az=0)=>{const k=v+"|"+w+"|"+h+"|"+az;if(!(k in C3)){try{C3[k]=typeof window.__render3D==="function"?window.__render3D(v,w,h,az):null;}catch(e){C3[k]=null;}}return C3[k];};
 const REF=(typeof PD!=="undefined"&&PD.ref)||{season:"2025/26",champ:77,second:73,sixth:59};
 const NRD=SEA.totalRounds||34;
 const ord=n=>n+(["th","st","nd","rd"][(n%100>10&&n%100<14)?0:Math.min(n%10,4)%4]||"th");
@@ -4873,14 +4888,14 @@ function rGrounds(){
   </div>${FT()}</section>`;
   const card=g=>{const f=g.f,c=capN(g),R=res3(g);const stat=(e,a,v,max,lbl)=>`<div class="sbx"><span>${e} · ${a}</span><div><i style="width:${Math.max(4,Math.min(100,v/max*100))}%"></i></div><b>${lbl}</b></div>`;
     return `<div class="gk"><div class="gkh"><span>${g===home?"HOME · أرضنا":"AWAY · خارج أرضنا"}</span><span>#${L.indexOf(g)+1}</span></div>
-    <div class="gkp">${pitchTop(f)}</div>
+    <div class="gkp">${(()=>{const t=three(g.v,520,300,.5);return t?`<img class="g3" src="${t.src}" alt=""><span class="g3b">3D</span>`:pitchTop(f);})()}</div>
     <div class="gkn"><b>${venEn(g.v)}</b><span class="ar">${g.v}</span></div>
     ${stat("Capacity","السعة",c,35000,f.cap||"?")}${stat("Distance","المسافة",g.km||0,1400,g.km==null?"?":g.km<5?"Home":g.km.toLocaleString("en")+" km")}
     <div class="gkf">${f.surface&&SURF[f.surface]?`<span>${SURF[f.surface][0]}</span>`:""}${f.roof&&ROOF[f.roof]?`<span>${ROOF[f.roof][0]}</span>`:""}${f.track!=null?`<span>${f.track?"Track":"No track"}</span>`:""}</div>
     <div class="gkr">${g.fx.map(m=>m.status==="played"&&m.score?`<span class="rpw ${res(m)}">${res(m)}</span>`:`<span class="rpw U">·</span>`).join("")}<em>${g.fx.map(m=>tn(opp(m))).filter((x,i,a)=>a.indexOf(x)===i).join(", ")}</em></div></div>`;};
   const pages=[];for(let i=0;i<L.length;i+=9)pages.push(L.slice(i,i+9));
   const p2=pages.map((pg,n)=>`<section class="rps fix">${head("Ground guide · دليل الملاعب","Ground cards","بطاقات الملاعب",`<span>Collect the set · مجموعة الملاعب ${n+1} / ${pages.length}</span>`)}<div class="rpB"><div class="gkg">${pg.map(card).join("")}</div>
-    <div class="rpnote">Pitch drawings are schematic: red edge marks a running track, gold bars mark covered stands. Dots are AlUla results at the ground, grey for games still to play. · رسومات توضيحية: الإطار الأحمر مضمار، والذهبي مدرجات مظللة، والدوائر نتائج العلا في الملعب.</div></div>${FT()}</section>`).join("");
+    <div class="rpnote">Cards marked 3D show the stadium 3D model from the dashboard, built from photos of the ground; the others use a schematic drawing (red edge running track, gold covered stands). Dots are AlUla results at the ground, grey for games still to play. · البطاقات المعلّمة 3D تعرض المجسم ثلاثي الأبعاد من اللوحة المبني من صور الملعب، والباقي رسمة توضيحية. الدوائر نتائج العلا في الملعب.</div></div>${FT()}</section>`).join("");
   return p1+p2;
 }
 
