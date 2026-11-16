@@ -1855,8 +1855,9 @@ button,input,select,textarea{font-family:inherit}
 /* Always open at the top: no jump to an old #section link or a remembered scroll position. In-page links scroll without changing the address. */
 (()=>{try{if("scrollRestoration" in history)history.scrollRestoration="manual";}catch(e){}
 const clean=()=>{if(location.hash){try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}};
-clean();const top=()=>window.scrollTo(0,0);top();
-addEventListener("DOMContentLoaded",top);addEventListener("load",()=>{top();setTimeout(top,0);});
+clean();let user=false;["wheel","touchstart","keydown","mousedown"].forEach(ev=>addEventListener(ev,()=>{user=true;},{passive:true,once:true}));
+const top=()=>{if(!user&&window.scrollY>0)window.scrollTo(0,0);};top();
+addEventListener("DOMContentLoaded",top);addEventListener("load",top);
 addEventListener("pageshow",e=>{if(e.persisted)top();});
 document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented)return;const id=a.getAttribute("href").slice(1);if(!id)return;const t=document.getElementById(id);if(!t)return;
   e.preventDefault();t.scrollIntoView({behavior:"smooth",block:"start"});});
@@ -2856,13 +2857,15 @@ if("IntersectionObserver" in window){
   const build=card=>{const s=SMAP.get(card.dataset.open);if(!s||!s.facts||!s.facts.model)return Promise.resolve();
     return new Promise(res=>{setTimeout(()=>{try{const box=rig.querySelector(".v3");box.style.background="";
       const v=makeViewer(box,{...s.facts.model,sky:skyOf(s)});const sp=document.createElement("canvas");sp.width=FW*COLS;sp.height=FH*Math.ceil(FR/COLS);const sx=sp.getContext("2d");
-      for(let i=0;i<FR;i++)v.frame(i*2*Math.PI/FR,sx,(i%COLS)*FW,Math.floor(i/COLS)*FH,FW,FH);v.destroy();
+      let i=0;const idle=window.requestIdleCallback||(f=>setTimeout(()=>f({timeRemaining:()=>8}),16));
+      const chunk=dl=>{try{const t0=performance.now();while(i<FR&&(performance.now()-t0<7||i%3)){v.frame(i*2*Math.PI/FR,sx,(i%COLS)*FW,Math.floor(i/COLS)*FH,FW,FH);i++;}}catch(err){try{v.destroy()}catch(e){}res();return;}
+        if(i<FR){idle(chunk,{timeout:400});return;}v.destroy();
       sp.toBlob(b=>{if(b){const sch=card.querySelector(".sch"),c=document.createElement("canvas");c.className="sch3dv";sch.appendChild(c);
-        TT.push({card,sch,c,url:URL.createObjectURL(b),img:null,vis:true,ph:0});tvio.observe(card);startTT();}res();},"image/jpeg",.82);}catch(err){res();}},30);});};
+        TT.push({card,sch,c,url:URL.createObjectURL(b),img:null,vis:true,ph:0});tvio.observe(card);startTT();}res();},"image/jpeg",.82);};idle(chunk,{timeout:400});}catch(err){res();}},60);});};
   /* smooth turntable: one animation loop draws the visible cards, blending each frame into the next */
   const TT=[],RED=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;let ttRaf=0,ttLast=0,ttPh=0;
   const tvio=new IntersectionObserver(es=>es.forEach(e=>{const t=TT.find(x=>x.card===e.target);if(!t)return;t.vis=e.isIntersecting;
-    if(t.vis&&!t.img){const im=new Image();im.onload=()=>{t.img=im;t.sch.classList.add("live");};im.src=t.url;}
+    if(t.vis&&!t.img){const im=new Image();im.onload=()=>{t.img=im;t.sch.classList.add("live");startTT();};im.src=t.url;}if(t.vis)startTT();
     if(!t.vis&&t.img){t.img.src="";t.img=null;}}),{rootMargin:"120px"});
   const drawTT=t=>{const c=t.c,dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;if(!w||!h)return;
     if(c.width!==Math.round(w*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}const g=c.getContext("2d");
@@ -2870,8 +2873,9 @@ if("IntersectionObserver" in window){
     const r=Math.max(c.width/FW,c.height/FH),dw=FW*r,dh=FH*r,dx=(c.width-dw)/2,dy=(c.height-dh)/2;
     const src=k=>[(k%COLS)*FW,Math.floor(k/COLS)*FH,FW,FH];
     g.globalAlpha=1;g.drawImage(t.img,...src(i),dx,dy,dw,dh);if(a>0.02){g.globalAlpha=a;g.drawImage(t.img,...src(j),dx,dy,dw,dh);g.globalAlpha=1;}};
-  const ttLoop=now=>{ttRaf=requestAnimationFrame(ttLoop);const dt=ttLast?Math.min(.1,(now-ttLast)/1000):0;ttLast=now;
-    if(!RED)ttPh+=dt/8;TT.forEach(t=>{if(!t.vis||!t.img)return;t.ph=ttPh;drawTT(t);});};
+  let ttDraw=0;const ttLoop=now=>{ttRaf=requestAnimationFrame(ttLoop);const dt=ttLast?Math.min(.1,(now-ttLast)/1000):0;ttLast=now;
+    if(!RED)ttPh+=dt/8;if(now-ttDraw<33||document.hidden)return;ttDraw=now;let any=false;TT.forEach(t=>{if(!t.vis||!t.img)return;any=true;t.ph=ttPh;drawTT(t);});
+    if(!any){cancelAnimationFrame(ttRaf);ttRaf=0;ttLast=0;}};
   const startTT=()=>{if(!ttRaf)ttRaf=requestAnimationFrame(ttLoop);};
   const pump=()=>{if(busy.v||!queue.length)return;busy.v=true;build(queue.shift()).then(()=>{busy.v=false;pump();});};
   const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){cio.unobserve(e.target);queue.push(e.target);pump();}}),{rootMargin:"300px"});
@@ -4432,10 +4436,12 @@ function apply(z){const html=document.documentElement;cur=z;
     rules(rs,r=>{if(!orig.has(r))orig.set(r,r.media.mediaText);const t=orig.get(r);if(!/width/.test(t))return;
       const nt=z===1?t:t.replace(/((?:min|max)-width\s*:\s*)(\d+(?:\.\d+)?)px/g,(m,a,n)=>a+(Math.round(n*z*100)/100)+"px");
       if(r.media.mediaText!==nt)r.media.mediaText=nt;});}}
-function fit(){if(window.__noFit)return;const w=window.innerWidth;apply(w>=900&&w<DW?Math.max(MIN,w/DW):1);}
+let lastZ=null,nSheets=-1;function fit(force){if(window.__noFit)return;const w=window.innerWidth;const z=w>=900&&w<DW?Math.round(Math.max(MIN,w/DW)*1000)/1000:1;
+  if(!force&&z===lastZ&&document.styleSheets.length===nSheets)return;lastZ=z;nSheets=document.styleSheets.length;apply(z);}
+let rT=0;const onR=()=>{clearTimeout(rT);rT=setTimeout(fit,150);};
 window.__fit=fit;
-addEventListener("resize",fit);addEventListener("beforeprint",()=>{window.__noFit=true;apply(1)});addEventListener("afterprint",()=>{window.__noFit=false;fit()});
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fit);else fit();addEventListener("load",fit);
+addEventListener("resize",onR);addEventListener("beforeprint",()=>{window.__noFit=true;apply(1);lastZ=null;});addEventListener("afterprint",()=>{window.__noFit=false;fit(true)});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>fit(true));else fit(true);addEventListener("load",()=>fit(true));
 })();
 </script>
 <!-- ===== Reports: four printable A4 reports, football inspired ===== -->
