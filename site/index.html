@@ -4635,6 +4635,18 @@ setTimeout(party,700);
   .rps.fix .rpB{overflow:hidden;min-height:0}
   .rps.fix .rpB>*{flex-shrink:0}
 }
+.rpH{background:#14233a!important;padding-bottom:12mm!important}
+.rpH::after{content:"";position:absolute;left:0;right:0;bottom:0;height:.6mm;background:linear-gradient(90deg,transparent,#c9b48a 30%,#c9b48a 70%,transparent);opacity:.7}
+.rpH svg.bg2{position:absolute;inset:0;width:100%;height:100%}
+.rpH>*:not(svg){position:relative}
+.rpH .crest{position:absolute!important;filter:drop-shadow(0 1.5mm 3mm rgba(0,0,0,.4))}
+.rpH .kick{color:#c9b48a;opacity:1}
+.hstrip{position:absolute!important;right:12mm;bottom:4.5mm;display:flex;align-items:center;gap:2.5mm}
+.hstrip span{font-family:var(--dinc);font-size:6.5px;letter-spacing:.18em;color:#9fb0c8}
+.hstrip div{display:flex;gap:.45mm}
+.hsg{display:block;width:1.5mm;height:2.6mm;border-radius:.3mm;background:rgba(255,255,255,.12)}
+.hsg.W{background:#5fa37c}.hsg.D{background:#d2a941}.hsg.L{background:#c96f68}.hsg.nx{background:#fff;height:3.6mm}
+@media screen and (prefers-reduced-motion:no-preference){#rpPaper.rpa .mo-in .hsg{animation:moSeg .4s ease both;animation-delay:calc(var(--i)*25ms + 200ms)}#rpPaper.rpa .mo-in .hsg.nx{animation:moSeg .4s ease both,moPulse 2.8s ease-in-out 2s infinite}}
 </style>
 <div class="rpov" id="rpOv" role="dialog" aria-label="Reports · التقارير">
   <div class="rpmenu" id="rpMenu"></div>
@@ -4674,7 +4686,11 @@ const author=()=>{const A=window.AUTHOR||{};return A.en||A.ar?`${A.en||""} ${A.a
 const T=(n,en,arr)=>`<div class="rpT"><span><i>${n}</i><b>${en}</b></span><span class="ar">${arr}</span></div>`;
 /* football pitch background for headers */
 const pitchBg=`<svg class="bg" viewBox="0 0 400 140" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-width="1.4"><rect x="6" y="6" width="388" height="128"/><line x1="200" y1="6" x2="200" y2="134"/><circle cx="200" cy="70" r="24"/><rect x="6" y="36" width="44" height="68"/><rect x="350" y="36" width="44" height="68"/><rect x="6" y="54" width="16" height="32"/><rect x="378" y="54" width="16" height="32"/></g></svg>`;
-const head=(kick,en,arr,meta)=>`<div class="rpH">${pitchBg}<div class="kick">${kick}</div><h1>${en}<span class="ar">${arr}</span></h1><div class="meta">${meta}</div><img class="crest" src="${CREST}" alt=""></div>`;
+const headBg=()=>`<svg class="bg2" viewBox="0 0 210 60" preserveAspectRatio="xMidYMin slice"><defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14233a"/><stop offset=".6" stop-color="#1d3150"/><stop offset="1" stop-color="#16263f"/></linearGradient><radialGradient id="hgo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#c9b48a" stop-opacity=".30"/><stop offset="1" stop-color="#c9b48a" stop-opacity="0"/></radialGradient><radialGradient id="hbl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5d8fc0" stop-opacity=".22"/><stop offset="1" stop-color="#5d8fc0" stop-opacity="0"/></radialGradient><pattern id="hdt" width="3.2" height="3.2" patternUnits="userSpaceOnUse"><circle cx="1.6" cy="1.6" r=".22" fill="#fff" opacity=".16"/></pattern></defs><rect width="210" height="60" fill="url(#hg)"/><rect width="210" height="60" fill="url(#hdt)"/><circle cx="20" cy="8" r="48" fill="url(#hbl)"/><circle cx="185" cy="22" r="34" fill="url(#hgo)"/><circle cx="185" cy="22" r="17" fill="none" stroke="#c9b48a" stroke-opacity=".35" stroke-width=".25"/><circle cx="185" cy="22" r="20.5" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width=".25" stroke-dasharray=".6 1.2"/></svg>`;
+const seasonStrip=()=>{const N=(SEA.totalRounds||34),byR={};MATCHES.filter(m=>m.comp==="league"&&typeof m.round==="number").forEach(m=>byR[m.round]=m);let c="";
+  for(let r=1;r<=N;r++){const m=byR[r],rr=m?res(m):null,nx=next&&m&&m.id===next.id;c+=`<i class="hsg${rr?" "+rr:""}${nx?" nx":""}" style="--i:${r}"></i>`;}
+  return `<div class="hstrip"><span>SEASON · الموسم</span><div>${c}</div></div>`;};
+const head=(kick,en,arr,meta)=>`<div class="rpH">${headBg()}${seasonStrip()}<div class="kick">${kick}</div><h1>${en}<span class="ar">${arr}</span></h1><div class="meta">${meta}</div><img class="crest" src="${CREST}" alt=""></div>`;
 const foot=n=>`<div class="rpF"><span>AlUla SC Match Centre · نادي العلا مركز المباريات · ${author()}</span><span>Source: saff.com.sa · المصدر: موقع الاتحاد السعودي لكرة القدم · Printed ${fE(today)}</span><span>${n}</span></div>`;
 const sheet=(h,b,n)=>`<section class="rps">${h}<div class="rpB">${b}</div>${foot(n)}</section>`;
 
