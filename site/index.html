@@ -713,6 +713,24 @@ footer{flex-direction:column}}
 
 @media (max-width:420px){.tk{grid-template-columns:minmax(0,1fr) 110px}.tkf{grid-template-columns:repeat(2,1fr)}.tkr{grid-template-columns:1fr;text-align:left}.tkr .tst.r{text-align:left}}
 
+/* boarding passes: equal heights, single line headers, tidy train ticket */
+.bpg{grid-auto-rows:1fr;align-items:stretch}
+.bpg>.bp,.bpg>.tk{height:100%;box-sizing:border-box}
+.bpm,.tkm,.bps{height:100%}
+.bpb{gap:10px}.bpl1{min-width:0}
+.bpl1 b,.bpl1 small,.bpl2 b{white-space:nowrap}
+.bpl1 small{letter-spacing:.05em}
+.bpl2 b{letter-spacing:.06em}
+.bpf{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bpf .ar{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bpf b{white-space:normal;overflow:visible;font-size:14.5px;line-height:1.08}
+.tkr{grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr)!important;gap:6px}
+.tkr .tst b{font-size:clamp(14px,1.15vw,18px)!important}
+.tkf{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 8px}
+.tkf b{overflow:hidden;text-overflow:ellipsis;font-size:14px}
+.tkf .ar{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkstripe{gap:8px;white-space:nowrap}
+
 /* ===== matchweek layout: key stats on top, next match beside all matches, changes below ===== */
 .s7{grid-column:span 7}
 .grid>.next{align-self:start}
