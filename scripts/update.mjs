@@ -176,6 +176,7 @@ async function main() {
   if (!ok) { log("no SAFF page could be read; data left unchanged"); process.exitCode = 0; return; }
   const today = new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10);
   D.lastChecked = today;
+  delete D.lastCheckedAt;
   saveData(header, D);
   fs.writeFileSync(path.join(ROOT, "last-run.json"), JSON.stringify({ at: new Date().toISOString(), changes }, null, 1) + "\n");
   log(changes.length ? changes.join("; ") : "no changes");
