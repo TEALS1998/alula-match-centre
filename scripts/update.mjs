@@ -18,6 +18,13 @@ const OTHER_SECTIONS = ["تحت", "السيدات", "الناشئات", "الص�
 
 const log = (...a) => console.log("[update]", ...a);
 
+function diag(name, html) {
+  if (!process.env.SAFF_DIAG) return;
+  console.log(`[diag] ${name}: ${html.length} chars, <tr> ${(html.match(/<tr/gi)||[]).length}, العلا ${(html.match(/العلا/g)||[]).length}`);
+  let i = -1, n = 0;
+  for (const key of ["نقاط", "العلا"]) { i = -1; n = 0;
+    while ((i = html.indexOf(key, i + 1)) >= 0 && n < 3) { console.log(`[diag] ${name} @${key}#${n}: ` + html.slice(Math.max(0, i - 700), i + 500).replace(/\s+/g, " ")); n++; i += 2000; } }
+}
 async function get(url) {
   const r = await fetch(url, {
     headers: {
@@ -134,7 +141,7 @@ async function main() {
   // Standings
   try {
     const html = await get(URLS.table);
-    fs.writeFileSync(path.join(RAW, "championship.html"), html);
+    fs.writeFileSync(path.join(RAW, "championship.html"), html); diag("championship", html);
     const rows = parseTable(html, teamOf);
     if (rows.length >= 16 && rows.some((r) => r[0] === US)) {
       ok++;
@@ -155,7 +162,7 @@ async function main() {
   // Fixtures and changes from the team page
   try {
     const html = await get(URLS.team);
-    fs.writeFileSync(path.join(RAW, "team.html"), html);
+    fs.writeFileSync(path.join(RAW, "team.html"), html); diag("team", html);
     const ms = parseMatches(html, teamOf).filter((m) => firstTeam(m.section));
     if (ms.length) ok++;
     for (const m of ms) applyMatch(S, m, changes, false);
