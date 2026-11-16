@@ -2,7 +2,7 @@ name: Live update from SAFF
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # every 10 minutes (GitHub may delay scheduled runs at busy times)
+    - cron: "3,13,23,33,43,53 * * * *"   # every 10 minutes, off the busy :00 mark (GitHub may still delay scheduled runs)
   workflow_dispatch: {}
   push:
     branches: [main]
