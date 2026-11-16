@@ -4684,7 +4684,7 @@ const MED={ll:[24.553,39.705],code:"MED",en:"Prince Mohammed bin Abdulaziz Airpo
 const hav2=(a,b)=>{const r=x=>x*Math.PI/180,R=6371,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));};
 /* dot matrix scoreboard digits, 5 x 7 */
 const DM={"0":["01110","10001","10011","10101","11001","10001","01110"],"1":["00100","01100","00100","00100","00100","00100","01110"],"2":["01110","10001","00001","00010","00100","01000","11111"],"3":["11110","00001","00001","01110","00001","00001","11110"],"4":["00010","00110","01010","10010","11111","00010","00010"],"5":["11111","10000","11110","00001","00001","10001","01110"],"6":["00110","01000","10000","11110","10001","10001","01110"],"7":["11111","00001","00010","00100","01000","01000","01000"],"8":["01110","10001","10001","01110","10001","10001","01110"],"9":["01110","10001","10001","01111","00001","00010","01100"],":":["0","1","1","0","1","1","0"]," ":["000","000","000","000","000","000","000"]};
-const dotText=(str,col="#f2d98a")=>{let x=0,out="";for(const ch of str){const g=DM[ch]||DM[" "];g.forEach((row,ry)=>[...row].forEach((c,cx)=>{out+=`<circle cx="${x+cx*4+2}" cy="${ry*4+2}" r="1.5" fill="${c==="1"?col:"#ffffff"}" opacity="${c==="1"?1:.07}"/>`;}));x+=g[0].length*4+4;}return {svg:out,w:x-4};};
+const dotText=(str,col="#f2d98a")=>{let x=0,out="";for(const ch of str){const g=DM[ch]||DM[" "];g.forEach((row,ry)=>[...row].forEach((c,cx)=>{out+=c==="1"?`<circle class="dl" style="--d:${((x+cx*4)*7+ry*53)%23}" cx="${x+cx*4+2}" cy="${ry*4+2}" r="1.5" fill="${col}"/>`:`<circle cx="${x+cx*4+2}" cy="${ry*4+2}" r="1.5" fill="#ffffff" opacity=".07"/>`;}));x+=g[0].length*4+4;}return {svg:out,w:x-4};};
 const board=(str,h=22,col)=>{const d=dotText(str,col);return `<svg viewBox="-3 -3 ${d.w+6} 34" style="height:${h}mm;display:block">${d.svg}</svg>`;};
 const kitSvg=(long,c1="#2e4a72",c2="#c9b48a")=>`<svg viewBox="0 0 24 24" style="width:12mm;height:12mm"><path d="M9 3 5 5 3 7l2.5 4L7 10.5V21h10V10.5l1.5.5L21 7l-2-2-4-2c-.6 1.6-1.7 2.4-3 2.4S9.6 4.6 9 3z" fill="${c1}" stroke="${c2}" stroke-width=".8"/>${long?`<path d="M3 7l2.5 4 1.5-.5M21 7l-2.5 4-1.5-.5" stroke="${c2}" stroke-width="1.6" fill="none"/>`:""}<path d="M9 3c.6 1.6 1.7 2.4 3 2.4S14.4 4.6 15 3" stroke="${c2}" fill="none"/></svg>`;
 /* schematic Saudi Arabia flight map: equirectangular box, cities as dots */
@@ -4714,12 +4714,12 @@ function seasonDial(){
   let out="";const gap=.018,st=2*Math.PI/N;
   for(let r=1;r<=N;r++){const m=byR[r],rr=m?res(m):null,isNext=next&&m&&m.id===next.id;
     const col=rr==="W"?"#5fa37c":rr==="D"?"#d2a941":rr==="L"?"#c96f68":isNext?"#ffffff":"#ffffff";const op=rr?1:isNext?.95:.12;
-    out+=`<path d="${arc((R1+R2)/2,(r-1)*st+gap,r*st-gap)}" stroke="${col}" stroke-width="${isNext?4.4:3.2}" fill="none" opacity="${op}" stroke-linecap="butt"/>`;
+    out+=`<path class="dsg${isNext?" dnx":""}" style="--i:${r}" d="${arc((R1+R2)/2,(r-1)*st+gap,r*st-gap)}" stroke="${col}" stroke-width="${isNext?4.4:3.2}" fill="none" opacity="${op}" stroke-linecap="butt"/>`;
     if(r%5===0||r===1)out+=`<text x="${cx+(R2+5)*Math.sin((r-.5)*st)}" y="${cy-(R2+5)*Math.cos((r-.5)*st)+1}" font-size="2.4" fill="#9fb0c8" text-anchor="middle">${r}</text>`;}
   const u=row(US);const pts=u?u[2]:0,tgt=Math.max(REF0().second||73,pts),R3=R2+6;
-  out+=`<path d="${arc(R3,0,2*Math.PI*.9999)}" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.2" fill="none"/><path d="${arc(R3,0,2*Math.PI*Math.min(.9999,pts/tgt))}" stroke="#c9b48a" stroke-width="1.2" fill="none"/>`;
+  out+=`<path d="${arc(R3,0,2*Math.PI*.9999)}" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.2" fill="none"/><path class="dpt" pathLength="1" d="${arc(R3,0,2*Math.PI*Math.min(.9999,pts/tgt))}" stroke="#c9b48a" stroke-width="1.2" fill="none"/>`;
   out+=`<circle cx="${cx}" cy="${cy}" r="${R1-4}" fill="none" stroke="#ffffff" stroke-opacity=".06"/>`;
-  const a=2*Math.PI*Math.min(.9999,pts/tgt);out+=`<circle cx="${cx+R3*Math.sin(a)}" cy="${cy-R3*Math.cos(a)}" r="1.4" fill="#f2d98a"/><text x="${cx+(R3+4)*Math.sin(a)}" y="${cy-(R3+4)*Math.cos(a)+1}" font-size="2.8" fill="#f2d98a" text-anchor="middle">${pts}</text>`;
+  const a=2*Math.PI*Math.min(.9999,pts/tgt);out+=`<g class="dpd"><circle cx="${cx+R3*Math.sin(a)}" cy="${cy-R3*Math.cos(a)}" r="1.4" fill="#f2d98a"/><text x="${cx+(R3+4)*Math.sin(a)}" y="${cy-(R3+4)*Math.cos(a)+1}" font-size="2.8" fill="#f2d98a" text-anchor="middle">${pts}</text></g>`;
   return out;}
 const NRD0=()=>SEA.totalRounds||34,REF0=()=>(typeof PD!=="undefined"&&PD.ref)||{second:73};
 function rMatch(){
@@ -5018,7 +5018,7 @@ const open=()=>{ov.classList.add("on");menu.hidden=false;bar.hidden=true;paper.i
 const close=()=>{ov.classList.remove("on");paper.innerHTML="";document.body.style.overflow="";};
 menu.addEventListener("click",e=>{if(e.target.closest("#rpClose"))return close();const b=e.target.closest("[data-rp]");if(!b)return;
   const k=b.dataset.rp;let h="";try{h=(k==="all"?R:R.filter(r=>r.k===k)).map(r=>r.f()).join("");}catch(err){h=`<p style="color:#fff">Report could not be built: ${err.message}</p>`;}
-  paper.innerHTML=h;menu.hidden=true;bar.hidden=false;ov.scrollTop=0;});
+  paper.innerHTML=h;menu.hidden=true;bar.hidden=false;ov.scrollTop=0;try{window.__MO&&window.__MO.report(paper,ov);}catch(e){}});
 $("#rpBack").onclick=()=>{menu.hidden=false;bar.hidden=true;paper.innerHTML="";};
 $("#rpPrint").onclick=()=>{try{window.print();}catch(e){alert("Press Ctrl+P · اضغطي Ctrl+P");}};
 ov.addEventListener("click",e=>{if(e.target===ov)close();});
@@ -5028,6 +5028,68 @@ btn.innerHTML=`<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 
 btn.onclick=open;const tsp=document.querySelector(".top-in .tsp");if(tsp)tsp.after(btn);
 window.__RP={open,R};
 }catch(e){console.error("reports",e);}})();
+</script>
+
+<style id="moCss">
+@media screen and (prefers-reduced-motion:no-preference){
+  /* dashboard: calm reveal on scroll */
+  .mo-r{opacity:0;transform:translateY(14px)}
+  .mo-r.mo-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.7,.2,1) var(--md,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--md,0ms)}
+  .card,.kpi{transition:box-shadow .35s ease,transform .35s ease}
+  .card:hover,.kpi:hover{box-shadow:0 10px 28px -14px rgba(20,35,58,.35)}
+  .sec .num{display:inline-block}
+  .sec.mo-in .num{animation:moNum 1s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes moNum{from{opacity:0;letter-spacing:.4em}to{opacity:1}}
+  /* reports: pages rise in, cover comes alive */
+  #rpPaper.rpa .rps{opacity:0;transform:translateY(18px)}
+  #rpPaper.rpa .rps.mo-in{opacity:1;transform:none;transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  #rpPaper.rpa .mo-in .dsg{animation:moSeg .5s ease both;animation-delay:calc(var(--i)*38ms + 250ms)}
+  @keyframes moSeg{from{opacity:0}}
+  #rpPaper.rpa .mo-in .dnx{animation:moSeg .5s ease both,moPulse 2.8s ease-in-out 2s infinite}
+  @keyframes moPulse{50%{opacity:.35}}
+  #rpPaper.rpa .mo-in .dpt{stroke-dasharray:1;stroke-dashoffset:1;animation:moDraw 1.6s cubic-bezier(.4,0,.2,1) 1.4s forwards}
+  @keyframes moDraw{to{stroke-dashoffset:0}}
+  #rpPaper.rpa .mo-in .dpd{animation:moSeg .6s ease 2.9s both}
+  #rpPaper.rpa .mo-in .dl{animation:moLit .45s steps(2,end) both;animation-delay:calc(var(--d)*28ms + 400ms)}
+  @keyframes moLit{from{opacity:.07}}
+  #rpPaper.rpa .mo-in .mpwpb,#rpPaper.rpa .mo-in .pdbar{animation:moWipe 1.3s cubic-bezier(.4,0,.2,1) 1.2s both}
+  @keyframes moWipe{from{clip-path:inset(0 100% 0 0 round 4mm)}to{clip-path:inset(0 0 0 0 round 4mm)}}
+  #rpPaper.rpa .mo-in .mptk{animation:moRise .9s cubic-bezier(.2,.7,.2,1) 1.6s both}
+  #rpPaper.rpa .mo-in .mpcount{animation:moRise .9s cubic-bezier(.2,.7,.2,1) 1.4s both}
+  @keyframes moRise{from{opacity:0;transform:translateY(10px)}}
+  #rpPaper.rpa .mo-in .mpvs>div:first-child{animation:moSide .9s cubic-bezier(.2,.7,.2,1) .3s both;--sx:-12px}
+  #rpPaper.rpa .mo-in .mpvs>div:last-child{animation:moSide .9s cubic-bezier(.2,.7,.2,1) .3s both;--sx:12px}
+  @keyframes moSide{from{opacity:0;transform:translateX(var(--sx))}}
+}
+@media print{.mo-r{opacity:1!important;transform:none!important}#rpPaper *{animation:none!important;transition:none!important}}
+</style>
+<script>
+(()=>{
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const isNum=t=>/^\s*\d{1,5}\s*$/.test(t);
+function countUp(el){if(el.dataset.mc)return;el.dataset.mc=1;const end=+el.textContent.trim();if(!(end>1))return;const t0=performance.now(),D=900;
+  const step=t=>{const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);el.textContent=Math.round(end*e);if(k<1)requestAnimationFrame(step);else el.textContent=end;};el.textContent="0";requestAnimationFrame(step);}
+function nums(root){const out=[];root.querySelectorAll("b,strong,.v,.n,big").forEach(e=>{if(e.children.length===0&&isNum(e.textContent))out.push(e);});return out;}
+function dash(){
+  if(RM)return;const els=[...document.querySelectorAll("main .kpi, main .card, main .sec, .kpi, .card, .sec")].filter((e,i,a)=>a.indexOf(e)===i&&!e.closest("#rpOv"));
+  if(!els.length||!("IntersectionObserver" in window))return;
+  let batch=0,timer=null;
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;io.unobserve(el);
+      el.style.setProperty("--md",(Math.min(batch++,6)*70)+"ms");el.classList.add("mo-in");
+      if(el.classList.contains("kpi"))nums(el).forEach(countUp);
+      clearTimeout(timer);timer=setTimeout(()=>batch=0,120);});},{rootMargin:"0px 0px -6% 0px",threshold:.06});
+  els.forEach(e=>{e.classList.add("mo-r");io.observe(e);});
+  setTimeout(()=>els.forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0&&!e.classList.contains("mo-in")){e.classList.add("mo-in");}}),2500);
+}
+function report(paper,ov){
+  if(RM||!("IntersectionObserver" in window))return;paper.classList.add("rpa");
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("mo-in");io.unobserve(en.target);}}),{root:ov,threshold:.08});
+  paper.querySelectorAll(".rps").forEach(p=>io.observe(p));
+}
+window.__MO={report};
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",dash);else dash();
+addEventListener("beforeprint",()=>document.querySelectorAll(".mo-r,.rps").forEach(e=>e.classList.add("mo-in")));
+})();
 </script>
 
 </body>
