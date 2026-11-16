@@ -4475,13 +4475,20 @@ setTimeout(party,700);
 .mptop{display:flex;justify-content:space-between;font-family:var(--dinc);letter-spacing:.2em;font-size:9px;opacity:.8;text-transform:uppercase}
 .mpround{margin-top:14mm;font-family:var(--dinc);font-size:54px;letter-spacing:.04em;line-height:.9;color:#fff}
 .mpround .ar{display:block;font-size:24px;color:#c9b48a;margin-top:3mm;text-align:left;direction:rtl;unicode-bidi:plaintext}
-.mpvs{margin-top:16mm;display:grid;grid-template-columns:1fr 72mm 1fr;align-items:center;gap:4mm;text-align:center}
+.mpvs{margin-top:16mm;display:grid;grid-template-columns:1fr 58mm 1fr;align-items:center;gap:4mm;text-align:center}
 .mpt b{display:block;font-family:var(--dinc);font-size:20px;letter-spacing:.05em;margin-top:3mm;text-transform:uppercase}
 .mpt .ar{display:block;font-size:15px;font-weight:700;color:#c9b48a}
 .mpt i{display:block;font-style:normal;font-size:8px;letter-spacing:.18em;opacity:.65;margin-top:1.5mm}
-.mpsb{background:#0b121e;border:2px solid #3b4a63;border-radius:6px;padding:4mm 3mm;box-shadow:inset 0 0 12px rgba(0,0,0,.6),0 4mm 8mm rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;gap:2mm}
+.mpsb{background:rgba(11,18,30,.92);border:1px solid #3b4a63;border-radius:6px;padding:3mm 2.5mm;box-shadow:inset 0 0 12px rgba(0,0,0,.6),0 4mm 8mm rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;gap:2mm}
 .mpsbl{font-family:var(--dinc);letter-spacing:.14em;font-size:8px;color:#9fb0c8}
 .mppos{margin-top:4mm;font-family:var(--dinc);font-size:30px;color:#fff;line-height:1}.mppos small{font-size:13px;color:#c9b48a;margin-left:1px}.mppos span{display:block;font-size:9px;letter-spacing:.12em;color:#9fb0c8;margin-top:1mm}
+.mpkey{margin-top:14mm;display:flex;flex-wrap:wrap;justify-content:center;gap:2.5mm 5mm;font-size:7.5px;color:#9fb0c8;letter-spacing:.04em}.mpkey i{display:inline-block;width:4mm;height:1.6mm;border-radius:1mm;margin-right:1.2mm;vertical-align:middle}
+.mpwp{margin:9mm auto 0;width:150mm}
+.mpwph{display:flex;justify-content:space-between;font-family:var(--dinc);letter-spacing:.14em;font-size:7.5px;color:#9fb0c8;margin-bottom:1.6mm}
+.mpwpb{display:flex;height:7mm;border-radius:4mm;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.mpwpb span{display:flex;align-items:center;justify-content:center;font-family:var(--dinc);font-size:11px;color:#fff;min-width:9mm}
+.mpwpb span:nth-child(1){background:linear-gradient(90deg,#3c7a58,#5fa37c)}.mpwpb span:nth-child(2){background:#b8923a}.mpwpb span:nth-child(3){background:linear-gradient(90deg,#c96f68,#9a4b46)}
+.mpwpk{display:flex;justify-content:space-between;font-size:7.5px;color:#c7d0dd;margin-top:1mm;letter-spacing:.06em}
 .mpcount{margin-top:auto;display:flex;align-items:flex-end;gap:3mm;padding-top:10mm}
 .mpcount b{font-family:var(--dinc);font-size:64px;line-height:.8;color:#c9b48a}
 .mpcount>span{font-family:var(--dinc);letter-spacing:.14em;text-transform:uppercase;font-size:12px}
@@ -4699,6 +4706,22 @@ const pitchTop=(f)=>{const tr=f.track,roof=f.roof;return `<svg viewBox="0 0 120 
   <rect x="${tr?13:8}" y="${tr?11:8}" width="${tr?94:104}" height="${tr?58:64}" rx="${tr?3:0}" fill="${f.surface==="a"?"#3f8a57":"#2f6b45"}"/>${[...Array(9)].map((_,i)=>`<rect x="${(tr?17:12)+i*9.6}" y="${tr?15:12}" width="4.8" height="${tr?50:56}" fill="#fff" opacity=".05"/>`).join("")}
   <g fill="none" stroke="#fff" stroke-width=".7"><rect x="${tr?17:12}" y="${tr?15:12}" width="${tr?86:96}" height="${tr?50:56}"/><line x1="60" y1="${tr?15:12}" x2="60" y2="${tr?65:68}"/><circle cx="60" cy="40" r="7"/><rect x="${tr?17:12}" y="29" width="12" height="22"/><rect x="${tr?91:96}" y="29" width="12" height="22"/></g></svg>`;};
 
+
+/* season dial: one segment per league round around the fixture, coloured by result; outer arc is points so far against a promotion benchmark */
+function seasonDial(){
+  const cx=105,cy=105,R1=40,R2=45,N=NRD0(),byR={};MATCHES.filter(m=>m.comp==="league"&&typeof m.round==="number").forEach(m=>byR[m.round]=m);
+  const arc=(r,a0,a1)=>{const p=a=>[cx+r*Math.sin(a),cy-r*Math.cos(a)];const [x0,y0]=p(a0),[x1,y1]=p(a1);return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${r} ${r} 0 ${a1-a0>Math.PI?1:0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;};
+  let out="";const gap=.018,st=2*Math.PI/N;
+  for(let r=1;r<=N;r++){const m=byR[r],rr=m?res(m):null,isNext=next&&m&&m.id===next.id;
+    const col=rr==="W"?"#5fa37c":rr==="D"?"#d2a941":rr==="L"?"#c96f68":isNext?"#ffffff":"#ffffff";const op=rr?1:isNext?.95:.12;
+    out+=`<path d="${arc((R1+R2)/2,(r-1)*st+gap,r*st-gap)}" stroke="${col}" stroke-width="${isNext?4.4:3.2}" fill="none" opacity="${op}" stroke-linecap="butt"/>`;
+    if(r%5===0||r===1)out+=`<text x="${cx+(R2+5)*Math.sin((r-.5)*st)}" y="${cy-(R2+5)*Math.cos((r-.5)*st)+1}" font-size="2.4" fill="#9fb0c8" text-anchor="middle">${r}</text>`;}
+  const u=row(US);const pts=u?u[2]:0,tgt=Math.max(REF0().second||73,pts),R3=R2+6;
+  out+=`<path d="${arc(R3,0,2*Math.PI*.9999)}" stroke="#ffffff" stroke-opacity=".08" stroke-width="1.2" fill="none"/><path d="${arc(R3,0,2*Math.PI*Math.min(.9999,pts/tgt))}" stroke="#c9b48a" stroke-width="1.2" fill="none"/>`;
+  out+=`<circle cx="${cx}" cy="${cy}" r="${R1-4}" fill="none" stroke="#ffffff" stroke-opacity=".06"/>`;
+  const a=2*Math.PI*Math.min(.9999,pts/tgt);out+=`<circle cx="${cx+R3*Math.sin(a)}" cy="${cy-R3*Math.cos(a)}" r="1.4" fill="#f2d98a"/><text x="${cx+(R3+4)*Math.sin(a)}" y="${cy-(R3+4)*Math.cos(a)+1}" font-size="2.8" fill="#f2d98a" text-anchor="middle">${pts}</text>`;
+  return out;}
+const NRD0=()=>SEA.totalRounds||34,REF0=()=>(typeof PD!=="undefined"&&PD.ref)||{second:73};
 function rMatch(){
   if(!next)return sheet(head("Matchday programme · برنامج المباراة","No fixture announced","لا توجد مباراة معلنة",""),`<p>The next fixture has not been published yet. · لم تُنشر المباراة القادمة بعد.</p>`,1);
   const o=opp(next),H=next.home===US,u=row(US)||[],t=row(o)||[];
@@ -4716,16 +4739,23 @@ function rMatch(){
   /* ---------- page 1: cover with scoreboard and ticket ---------- */
   const p1=`<section class="rps mp fix">
    <div class="mpc">
-     <svg class="mpbg" viewBox="0 0 210 200" preserveAspectRatio="none"><defs><linearGradient id="mpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2e4a72"/><stop offset="1" stop-color="#16243a"/></linearGradient></defs><rect width="210" height="200" fill="url(#mpg)"/>
-     ${[...Array(12)].map((_,i)=>`<rect x="${-40+i*26}" y="-20" width="13" height="260" fill="#fff" opacity=".025" transform="rotate(18 105 100)"/>`).join("")}
-     <g fill="none" stroke="#fff" stroke-width=".45" opacity=".16" transform="rotate(18 105 100)"><rect x="5" y="20" width="200" height="160"/><line x1="105" y1="20" x2="105" y2="180"/><circle cx="105" cy="100" r="22"/><rect x="5" y="62" width="30" height="76"/><rect x="175" y="62" width="30" height="76"/></g></svg>
+     <svg class="mpbg" viewBox="0 0 210 297" preserveAspectRatio="xMidYMin slice"><defs>
+       <linearGradient id="mpg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14233a"/><stop offset=".55" stop-color="#1b2d4a"/><stop offset="1" stop-color="#0f1a2c"/></linearGradient>
+       <radialGradient id="mgl" cx="0" cy="0" r="1"><stop offset="0" stop-color="#c9b48a" stop-opacity=".28"/><stop offset="1" stop-color="#c9b48a" stop-opacity="0"/></radialGradient>
+       <radialGradient id="mgr" cx="0" cy="0" r="1"><stop offset="0" stop-color="#5d8fc0" stop-opacity=".26"/><stop offset="1" stop-color="#5d8fc0" stop-opacity="0"/></radialGradient>
+       <pattern id="mdots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".28" fill="#ffffff" opacity=".16"/></pattern></defs>
+     <rect width="210" height="297" fill="url(#mpg)"/><rect width="210" height="297" fill="url(#mdots)"/>
+     <ellipse cx="38" cy="105" rx="70" ry="70" fill="url(#mgl)"/><ellipse cx="172" cy="105" rx="70" ry="70" fill="url(#mgr)"/>
+     ${seasonDial()}</svg>
      <div class="mptop"><span>AlUla SC · نادي العلا</span><span>${SEA.league?SEA.league[0]:""} · ${SEA.label?SEA.label[0]:SKEY}</span></div>
      <div class="mpround">${round[0]}<span class="ar">${round[1]}</span></div>
      <div class="mpvs">
        <div class="mpt">${crestImg(next.home,40)}<b>${tn(next.home)}</b><span class="ar">${next.home}</span><i>${H?"HOME · المستضيف":"HOST · المستضيف"}</i>${row(next.home)?`<div class="mppos">${row(next.home)[1]}<small>${["","st","nd","rd"][row(next.home)[1]]||"th"}</small><span>${row(next.home)[2]} pts · نقطة</span></div>`:""}</div>
-       <div class="mpsb"><div class="mpsbl">KICK OFF · ضربة البداية</div>${board(next.time||"  :  ",20)}<div class="mpsbl">${fE(next.date)} · ${fA(next.date)}</div></div>
+       <div class="mpsb"><div class="mpsbl">KICK OFF · ضربة البداية</div>${board(next.time||"  :  ",14)}<div class="mpsbl">${fE(next.date)} · ${fA(next.date)}</div></div>
        <div class="mpt">${crestImg(next.away,40)}<b>${tn(next.away)}</b><span class="ar">${next.away}</span><i>VISITORS · الضيف</i>${row(next.away)?`<div class="mppos">${row(next.away)[1]}<small>${["","st","nd","rd"][row(next.away)[1]]||"th"}</small><span>${row(next.away)[2]} pts · نقطة</span></div>`:""}</div>
      </div>
+     <div class="mpkey"><span><i style="background:#5fa37c"></i>Win · فوز</span><span><i style="background:#d2a941"></i>Draw · تعادل</span><span><i style="background:#c96f68"></i>Loss · خسارة</span><span><i style="background:#fff"></i>This match · هذه المباراة</span><span><i style="background:#c9b48a;height:1px"></i>Points toward ${REF0().second||73} · النقاط نحو ${REF0().second||73}</span></div>
+     ${(()=>{const P=predict(next);if(!P)return"";const pc=x=>Math.round(x*100);return `<div class="mpwp"><div class="mpwph"><span>MODEL WIN PROBABILITY · احتمالات النموذج</span><span>Most likely ${P.top[0][0]} v ${P.top[0][1]} · النتيجة الأرجح</span></div><div class="mpwpb"><span style="flex:${P.pw}">${pc(P.pw)}%</span><span style="flex:${P.pd}">${pc(P.pd)}%</span><span style="flex:${P.pl}">${pc(P.pl)}%</span></div><div class="mpwpk"><span>${tn(next.home)}</span><span>Draw · تعادل</span><span>${tn(next.away)}</span></div></div>`;})()}
      <div class="mpcount"><b>${daysTo}</b><span>${daysTo===1?"day":"days"} to go<span class="ar">${daysTo===0?"اليوم":"يوم متبقي"}</span></span></div>
    </div>
    <div class="mptk">
