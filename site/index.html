@@ -1835,6 +1835,19 @@ button,input,select,textarea{font-family:inherit}
 .strow .sthome .stg{grid-template-columns:1fr!important}
 .strow+.sthalf{margin-top:22px;padding-top:18px;border-top:1px dashed rgba(30,53,86,.22)}
 @media (max-width:900px){.strow{grid-template-columns:1fr}.strow>.sthalf+.sthalf{border-inline-start:0;padding-inline-start:0;margin-top:22px;padding-top:18px;border-top:1px dashed rgba(30,53,86,.22)}.strow .sthome .stg{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))!important}}
+
+/* stadiums: one even grid with filter chips */
+.stbar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+.stchip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 8px 7px 14px;cursor:pointer;font:inherit;color:var(--navy);transition:background .2s,color .2s,border-color .2s}
+.stchip b{font-size:13px;font-weight:700}.stchip .ar{font-size:12.5px;color:#8f6e52;font-weight:600}
+.stchip i{font-style:normal;font-family:var(--dinc);font-size:12px;font-weight:700;min-width:22px;height:22px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;background:#efe9de;color:var(--navy);padding:0 6px}
+.stchip:hover{border-color:#c9b48a}
+.stchip.on{background:var(--navy);border-color:var(--navy);color:#fff}.stchip.on .ar{color:#e6d6b3}.stchip.on i{background:rgba(255,255,255,.18);color:#fff}
+.stall{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important;align-items:stretch}
+.stall>[hidden]{display:none!important}
+.stall>*{height:100%}.stall>*>.stc2{height:100%}
+@media (max-width:1100px){.stall{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media (max-width:760px){.stall{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.stchip{padding:6px 7px 6px 11px}.stchip .ar{display:none}}
 </style>
 </head>
 <body>
@@ -2741,13 +2754,20 @@ const mkHalf=n=>[...SMAP.values()].filter(s=>s.key!==HOMEK&&(n===1?inR1(s):!inR1
 const HALVES0=[...(SMAP.has(HOMEK)?[{en:"Our home ground",ar:"ملعبنا",list:[SMAP.get(HOMEK)],home:true}]:[]),{en:"First round grounds",ar:"ملاعب الدور الأول",list:mkHalf(1)},{en:"New grounds in the second round",ar:"ملاعب جديدة في الدور الثاني",list:mkHalf(2)}];
 const HALVES=HALVES0;const halfHtml=h=>`<div class="sthalf${h.home?" sthome":""}"><div class="sthh"><b>${h.en}</b><span class="ar">${h.ar}</span>${h.home?`<small>${EN(h.list[0].fx.length+h.list[0].ex.length,"fixture")} this season · ${AN(h.list[0].fx.length+h.list[0].ex.length,"match")} هذا الموسم</small>`:`<small>${EN(h.list.length,"ground")} · ${AN(h.list.length,"ground")}</small>`}</div>
   <div class="stg">${h.list.map(CARD).join("")}</div></div>`;
-const halvesHtml=HALVES[0]&&HALVES[0].home&&HALVES[1]?`<div class="strow">${halfHtml(HALVES[0])}${halfHtml(HALVES[1])}</div>`+HALVES.slice(2).map(halfHtml).join(""):HALVES.map(halfHtml).join("");
+const GRP=[];HALVES.forEach((h,gi)=>h.list.forEach(s=>GRP.push([s,h.home?"home":gi===(HALVES[0].home?1:0)?"r1":"r2"])));
+const nG=g=>GRP.filter(x=>x[1]===g).length;
+const chips=[["all","All grounds","كل الملاعب",GRP.length],["home","Our home","ملعبنا",nG("home")],["r1","First round","الدور الأول",nG("r1")],["r2","New in second round","جديدة في الدور الثاني",nG("r2")]].filter(c=>c[3]>0);
+const halvesHtml=`<div class="stbar" role="tablist">${chips.map((c,i)=>`<button class="stchip${i?"":" on"}" data-g="${c[0]}" role="tab"><b>${c[1]}</b><span class="ar">${c[2]}</span><i>${c[3]}</i></button>`).join("")}</div>
+  <div class="stg stall">${GRP.map(([s,g])=>CARD(s).replace('<button class="stc2','<button data-g="'+g+'" class="stc2')).join("")}</div>`;
 host.innerHTML=feat+`<article class="card s12"><div class="ch"><div><h3>All venues this season</h3><span class="ar" style="font-size:13px;color:var(--navy);font-weight:600">كل ملاعب الموسم</span></div>
    <small class="hint" style="text-align:end">${LIST.length} grounds · ${LIST.filter(s=>s.facts&&s.facts.model).length} with 3D preview${tbc.length?` · ${tbc.length} fixture${tbc.length>1?"s":""} with venue TBC`:""}<span class="ar" style="display:block">${AN(LIST.length,"ground")} · ${LIST.filter(s=>s.facts&&s.facts.model).length} بعرض ثلاثي الأبعاد</span></small></div>
   ${halvesHtml}
   ${tbc.length?`<div class="sttbc">${svgI("venue")}<span>Venue TBC · ${tbc.map(m=>`${compOf(m)[0]} v ${esc(tEn(oppOf(m)))}${m.venue?" ("+esc(vEn(m.venue))+")":""}`).join(", ")}<span class="ar">الملعب لم يُعلن: ${tbc.map(m=>`${compOf(m)[1]} ضد ${esc(oppOf(m))}${m.venue?" ("+esc(m.venue)+")":""}`).join("، ")}</span></span></div>`:""}
  </article>
  <article class="card s12 stdet" id="stdet" hidden></article>`;
+host.querySelector(".stbar")&&host.querySelector(".stbar").addEventListener("click",e=>{const c=e.target.closest(".stchip");if(!c)return;e.stopPropagation();
+  host.querySelectorAll(".stchip").forEach(x=>x.classList.toggle("on",x===c));const g=c.dataset.g;
+  host.querySelectorAll(".stall [data-g]").forEach(x=>{const w=x.closest(".stall>*")||x;w.hidden=!(g==="all"||x.dataset.g===g);});});
 
 /* -- detail -- */
 const det=document.getElementById("stdet");let viewer=null;
