@@ -1722,6 +1722,5 @@ window.ALULA_DATA = {
     }
    ]
   }
- },
- "lastCheckedAt": "2026-11-16T11:40:11.797Z"
+ }
 };
