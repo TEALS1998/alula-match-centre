@@ -4453,14 +4453,103 @@ setTimeout(party,700);
 .km{display:flex;flex-direction:column;gap:1.6mm}
 .km .r{display:grid;grid-template-columns:36mm 1fr 16mm;align-items:center;gap:2mm;font-size:9px}
 .km .b{height:7px;border-radius:4px;background:linear-gradient(90deg,#2e4a72,#8f6e52)}
+
+/* matchday programme */
+.rps.mp{background:#16243a}
+.rpj .rpB{gap:3mm;padding-top:5mm}
+.rpj .rpT{margin-bottom:2mm}
+.rpj .tl p{font-size:8.5px}
+.rpj .rpH{padding-top:10mm;padding-bottom:6mm}
+.mpc{position:relative;flex:1;color:#fff;padding:12mm 12mm 6mm;display:flex;flex-direction:column;overflow:hidden}
+.mpbg{position:absolute;inset:0;width:100%;height:100%}
+.mpc>*:not(.mpbg){position:relative}
+.mptop{display:flex;justify-content:space-between;font-family:var(--dinc);letter-spacing:.2em;font-size:9px;opacity:.8;text-transform:uppercase}
+.mpround{margin-top:14mm;font-family:var(--dinc);font-size:54px;letter-spacing:.04em;line-height:.9;color:#fff}
+.mpround .ar{display:block;font-size:24px;color:#c9b48a;margin-top:3mm;text-align:left;direction:rtl;unicode-bidi:plaintext}
+.mpvs{margin-top:16mm;display:grid;grid-template-columns:1fr 72mm 1fr;align-items:center;gap:4mm;text-align:center}
+.mpt b{display:block;font-family:var(--dinc);font-size:20px;letter-spacing:.05em;margin-top:3mm;text-transform:uppercase}
+.mpt .ar{display:block;font-size:15px;font-weight:700;color:#c9b48a}
+.mpt i{display:block;font-style:normal;font-size:8px;letter-spacing:.18em;opacity:.65;margin-top:1.5mm}
+.mpsb{background:#0b121e;border:2px solid #3b4a63;border-radius:6px;padding:4mm 3mm;box-shadow:inset 0 0 12px rgba(0,0,0,.6),0 4mm 8mm rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;gap:2mm}
+.mpsbl{font-family:var(--dinc);letter-spacing:.14em;font-size:8px;color:#9fb0c8}
+.mppos{margin-top:4mm;font-family:var(--dinc);font-size:30px;color:#fff;line-height:1}.mppos small{font-size:13px;color:#c9b48a;margin-left:1px}.mppos span{display:block;font-size:9px;letter-spacing:.12em;color:#9fb0c8;margin-top:1mm}
+.mpcount{margin-top:auto;display:flex;align-items:flex-end;gap:3mm;padding-top:10mm}
+.mpcount b{font-family:var(--dinc);font-size:64px;line-height:.8;color:#c9b48a}
+.mpcount>span{font-family:var(--dinc);letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+.mpcount .ar{display:block;font-size:12px;letter-spacing:0;color:#c9b48a}
+.mptk{display:grid;grid-template-columns:1fr 46mm;margin:0 12mm 6mm;background:#f6efe0;color:#262c36;border-radius:6px;position:relative}
+.mptk:before,.mptk:after{content:"";position:absolute;right:46mm;width:6mm;height:6mm;border-radius:50%;background:#16243a;transform:translateX(50%)}
+.mptk:before{top:-3mm}.mptk:after{bottom:-3mm}
+.tkm{padding:5mm 6mm;border-right:1.5px dashed #b9ab98}
+.tks{padding:5mm}
+.tkh{font-family:var(--dinc);letter-spacing:.2em;font-size:9px;color:#8a7548;margin-bottom:2.5mm}
+.tkg{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 6mm}
+.tkg span,.bpg span,.ccg span{display:block;font-size:7.5px;letter-spacing:.06em;color:#736d66;text-transform:uppercase}
+.tkg b{font-family:var(--dinc);font-size:13px;color:#2e4a72}
+.tkg em,.bpg em,.ccg em{display:block;font-style:normal;font-size:8.5px;color:#4b5969}
+.tkbig{font-family:var(--dinc);font-size:30px;color:#2e4a72;line-height:1}
+.tkd{font-size:9px;color:#4b5969}
+.rptab tr.op td{background:#e6ecf4;font-weight:700}
+.fstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6mm;margin-bottom:3mm}
+.fs{border-radius:6px;padding:2mm 1mm;text-align:center;color:#fff;position:relative}
+.fs.W{background:#5fa37c}.fs.D{background:#d2a941}.fs.L{background:#c96f68}
+.fs b{display:block;font-family:var(--dinc);font-size:18px;line-height:1}
+.fs span{display:block;font-family:var(--dinc);font-size:11px}
+.fs i{display:block;font-style:normal;font-size:7px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs em{position:absolute;top:1mm;right:1.2mm;font-style:normal;font-size:7px;opacity:.85}
+.bp{display:grid;grid-template-columns:1fr 34mm;background:#fff;border:1px solid #dad6d0;border-radius:10px;overflow:hidden;position:relative}
+.bpm{padding:3.5mm 5mm;border-right:1.5px dashed #cdc8c1}
+.bph{display:flex;justify-content:space-between;font-family:var(--dinc);letter-spacing:.14em;font-size:9px;color:#fff;background:#2e4a72;margin:-4mm -5mm 3mm;padding:2.5mm 5mm}
+.bpr{display:flex;align-items:center;justify-content:space-between;gap:3mm}
+.bpr b{display:block;font-family:var(--dinc);font-size:28px;color:#2e4a72;line-height:.95;letter-spacing:.04em}
+.bpr span{display:block;font-family:var(--dinc);font-size:10px;letter-spacing:.14em;color:#4b5969}
+.bpr em{display:block;font-style:normal;font-size:10px;font-weight:700;color:#8a7548}
+.bpg{display:grid;grid-template-columns:repeat(3,1fr);gap:2mm 4mm;margin-top:2mm}
+.bpg b{font-family:var(--dinc);font-size:12px;color:#262c36}
+.bps{background:#efe7d6;padding:4mm;display:flex;flex-direction:column;justify-content:center;gap:1mm;text-align:center}
+.bps span{font-family:var(--dinc);letter-spacing:.14em;font-size:8px;color:#8a7548}
+.bps b{font-family:var(--dinc);font-size:20px;color:#2e4a72}
+.cc{background:#fff;border:1px solid #dad6d0;border-radius:10px;overflow:hidden}
+.cch{background:linear-gradient(120deg,#8f6e52,#483c37);color:#fff;padding:3mm 4mm}
+.cch b{font-family:var(--dinc);font-size:18px;letter-spacing:.05em;text-transform:uppercase}
+.cch .ar{margin-left:3mm;font-weight:700;color:#efe7d6}
+.cch i{display:block;font-style:normal;font-size:8.5px;opacity:.85}
+.ccg{padding:2.5mm 4mm;display:grid;grid-template-columns:1fr 1fr;gap:1.8mm 3mm}
+.ccg>div{min-width:0}
+.ccg b{font-size:8.8px!important}
+.ccg b{font-size:9.5px;color:#262c36;font-weight:700}
+.gd{background:#fff;border:1px solid #dad6d0;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:30mm 1fr}
+.gd{break-inside:avoid;min-height:42mm}
+.gd>svg{height:100%!important;min-height:42mm;width:30mm!important;border-radius:0!important}
+.gdi{padding:3mm 4mm;font-size:9px}
+.gdi>b{display:block;font-family:var(--dinc);font-size:13px;color:#2e4a72}
+.gdi>.ar{display:block;font-weight:700;color:#2e4a72;font-size:10px}
+.gdi .ff{display:grid;grid-template-columns:1fr 1fr;gap:1.2mm;margin:2mm 0}
+.gdi .ff span{background:#ebe8e3;border-radius:4px;padding:.6mm 1.6mm;font-size:8px}
+.wx{display:flex;align-items:center;justify-content:space-between;gap:3mm;background:#e6ecf4;border-radius:8px;padding:2mm 3mm}
+.wxt b{font-family:var(--dinc);font-size:18px;color:#2e4a72;display:block;line-height:1}
+.wxt span{font-size:8.5px}.wxt em{display:block;font-style:normal;font-size:7.5px;color:#736d66}
+.wxk{display:flex;flex-direction:column;align-items:center;font-size:8px}
+.tl{position:relative;padding-left:6mm;display:flex;flex-direction:column;gap:1.8mm}
+.tl:before{content:"";position:absolute;left:2mm;top:1mm;bottom:1mm;width:1.2mm;border-radius:1mm;background:repeating-linear-gradient(#2e4a72 0 3mm,#c9b48a 3mm 6mm)}
+.tl>div{position:relative}
+.tl i{position:absolute;left:-5.6mm;top:.6mm;width:3.6mm;height:3.6mm;border-radius:50%;background:#fff;border:1mm solid #2e4a72}
+.tl b{font-family:var(--dinc);font-size:11px;color:#2e4a72;letter-spacing:.06em;text-transform:uppercase}
+.tl .ar{margin-left:2mm;font-weight:700;color:#8a7548;font-size:10px}
+.tl p{margin:.6mm 0 0;font-size:9px;color:#4b5969}
 @media print{
   @page{size:A4 portrait;margin:0}
   html,body{background:#fff!important}
   body>*:not(#rpOv){display:none!important}
-  #rpOv{position:static!important;display:block!important;background:none!important;padding:0!important;overflow:visible!important}
+  #rpOv{position:static!important;display:block!important;background:none!important;padding:0!important;overflow:visible!important;height:auto!important}
+  html,body{height:auto!important;min-height:0!important;margin:0!important;padding:0!important}
   #rpOv .rpmenu,#rpOv .rpbar{display:none!important}
   #rpPaper{max-width:none}
-  .rps{box-shadow:none;margin:0;page-break-after:always;break-after:page;width:210mm;min-height:296mm}
+  .rps{box-shadow:none;margin:0;width:210mm;min-height:295mm}
+  .rps+.rps{break-before:page;page-break-before:always}
+  .rps.fix{height:295mm;min-height:0}
+  .rps.fix .rpB{overflow:hidden;min-height:0}
+  .rps.fix .rpB>*{flex-shrink:0}
 }
 </style>
 <div class="rpov" id="rpOv" role="dialog" aria-label="Reports · التقارير">
@@ -4505,35 +4594,143 @@ const head=(kick,en,arr,meta)=>`<div class="rpH">${pitchBg}<div class="kick">${k
 const foot=n=>`<div class="rpF"><span>AlUla SC Match Centre · نادي العلا مركز المباريات · ${author()}</span><span>Source: saff.com.sa · المصدر: موقع الاتحاد السعودي لكرة القدم · Printed ${fE(today)}</span><span>${n}</span></div>`;
 const sheet=(h,b,n)=>`<section class="rps">${h}<div class="rpB">${b}</div>${foot(n)}</section>`;
 
-/* 1. Matchday programme */
+/* 1. Matchday programme: three pages (cover and ticket, the contest, the journey) */
+const TRAVEL={"base":["Madinah","المدينة المنورة"],"baseAirport":["Prince Mohammed bin Abdulaziz Airport (MED)","مطار الأمير محمد بن عبدالعزيز"],"party":{"players":24,"staff":16,"rooms":28,"note":["24 players and 16 staff. Players in twin rooms, head coach, doctor and team manager in singles.","24 لاعباً و16 من الجهاز. اللاعبون في غرف مزدوجة، والمدرب والطبيب ومدير الفريق في غرف مفردة."]},"routes":{"ملعب نادي البكيرية (البكيرية)":{"mode":"air","to":["Qassim, Prince Naif Airport (ELQ)","القصيم، مطار الأمير نايف"],"mins":75,"transfer":40,"hotelArea":["Buraidah, near King Abdullah Road","بريدة، قرب طريق الملك عبدالله"],"pitch":["Al Bukiryah Club training pitch, request through the home club","ملعب تدريب نادي البكيرية، بالتنسيق مع النادي المستضيف"]},"استاد مدينة الملك عبدالعزيز الرياضية (مكة المكرمة)":{"mode":"train","to":["Haramain train to Makkah station","قطار الحرمين إلى محطة مكة"],"mins":150,"transfer":25,"hotelArea":["Makkah, Al Aziziyah or Al Awali (away from the Haram crowds)","مكة، العزيزية أو العوالي بعيداً عن زحام الحرم"],"pitch":["Training pitch at King Abdulaziz Sports City","ملعب تدريب في مدينة الملك عبدالعزيز الرياضية"]},"استاد جامعة الجوف (الجوف)":{"mode":"air","to":["Al Jouf Airport (AJF)","مطار الجوف"],"mins":85,"transfer":20,"hotelArea":["Sakaka city centre","سكاكا، وسط المدينة"],"pitch":["Al Jouf University stadium training slot","موعد تدريب على ملعب جامعة الجوف"]},"استاد الأمير عبدالعزيز بن مساعد بن جلوي (حائل)":{"mode":"air","to":["Hail Airport (HAS)","مطار حائل"],"mins":70,"transfer":20,"hotelArea":["Hail, near the stadium in Al Aziziyah","حائل، قرب الاستاد في العزيزية"],"pitch":["Prince Abdulaziz bin Musaed Stadium training slot","موعد تدريب على استاد الأمير عبدالعزيز بن مساعد"]}}};
+const MED={ll:[24.553,39.705],code:"MED",en:"Prince Mohammed bin Abdulaziz Airport",ar:"مطار الأمير محمد بن عبدالعزيز"};
+const hav2=(a,b)=>{const r=x=>x*Math.PI/180,R=6371,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h));};
+/* dot matrix scoreboard digits, 5 x 7 */
+const DM={"0":["01110","10001","10011","10101","11001","10001","01110"],"1":["00100","01100","00100","00100","00100","00100","01110"],"2":["01110","10001","00001","00010","00100","01000","11111"],"3":["11110","00001","00001","01110","00001","00001","11110"],"4":["00010","00110","01010","10010","11111","00010","00010"],"5":["11111","10000","11110","00001","00001","10001","01110"],"6":["00110","01000","10000","11110","10001","10001","01110"],"7":["11111","00001","00010","00100","01000","01000","01000"],"8":["01110","10001","10001","01110","10001","10001","01110"],"9":["01110","10001","10001","01111","00001","00010","01100"],":":["0","1","1","0","1","1","0"]," ":["000","000","000","000","000","000","000"]};
+const dotText=(str,col="#f2d98a")=>{let x=0,out="";for(const ch of str){const g=DM[ch]||DM[" "];g.forEach((row,ry)=>[...row].forEach((c,cx)=>{out+=`<circle cx="${x+cx*4+2}" cy="${ry*4+2}" r="1.5" fill="${c==="1"?col:"#ffffff"}" opacity="${c==="1"?1:.07}"/>`;}));x+=g[0].length*4+4;}return {svg:out,w:x-4};};
+const board=(str,h=22,col)=>{const d=dotText(str,col);return `<svg viewBox="-3 -3 ${d.w+6} 34" style="height:${h}mm;display:block">${d.svg}</svg>`;};
+const kitSvg=(long,c1="#2e4a72",c2="#c9b48a")=>`<svg viewBox="0 0 24 24" style="width:12mm;height:12mm"><path d="M9 3 5 5 3 7l2.5 4L7 10.5V21h10V10.5l1.5.5L21 7l-2-2-4-2c-.6 1.6-1.7 2.4-3 2.4S9.6 4.6 9 3z" fill="${c1}" stroke="${c2}" stroke-width=".8"/>${long?`<path d="M3 7l2.5 4 1.5-.5M21 7l-2.5 4-1.5-.5" stroke="${c2}" stroke-width="1.6" fill="none"/>`:""}<path d="M9 3c.6 1.6 1.7 2.4 3 2.4S14.4 4.6 15 3" stroke="${c2}" fill="none"/></svg>`;
+/* schematic Saudi Arabia flight map: equirectangular box, cities as dots */
+const flightMap=(fromLL,toLL,fromLbl,toLbl,mode)=>{
+  const W=180,H=72,lon0=34,lon1=56,lat0=17,lat1=31;const P=ll=>[(ll[1]-lon0)/(lon1-lon0)*W,(lat1-ll[0])/(lat1-lat0)*H];
+  const cs=Object.values(DATA.cities||{}).filter(c=>c.ll);const a=P(fromLL),b=P(toLL);const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2-Math.max(10,Math.hypot(b[0]-a[0],b[1]-a[1])*.25);
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block;background:#1d2b44;border-radius:8px">
+  <g stroke="#ffffff" stroke-width=".2" opacity=".14">${[...Array(12)].map((_,i)=>`<line x1="${i*W/11}" y1="0" x2="${i*W/11}" y2="${H}"/>`).join("")}${[...Array(8)].map((_,i)=>`<line x1="0" y1="${i*H/7}" x2="${W}" y2="${i*H/7}"/>`).join("")}</g>
+  <text x="${P([21,38.3])[0]}" y="${P([21,38.3])[1]}" font-size="4" fill="#ffffff" opacity=".25" transform="rotate(-62 ${P([21,38.3])[0]} ${P([21,38.3])[1]})">RED SEA · البحر الأحمر</text>
+  <text x="${P([27.2,50.6])[0]}" y="${P([27.2,50.6])[1]}" font-size="3.6" fill="#ffffff" opacity=".25">ARABIAN GULF</text>
+  ${cs.map(c=>{const p=P(c.ll);return `<circle cx="${p[0]}" cy="${p[1]}" r="1.1" fill="#ffffff" opacity=".35"/>`;}).join("")}
+  <path d="M${a[0]} ${a[1]} Q${mx} ${my} ${b[0]} ${b[1]}" fill="none" stroke="#f2d98a" stroke-width="1.1" stroke-dasharray="${mode==="train"?"0":"3 2"}"/>
+  ${mode==="train"?"":`<g transform="translate(${mx} ${my+Math.abs(my-(a[1]+b[1])/2)/2}) rotate(${Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI})"><path d="M-3 0 3 0M0 0-1.5-2.6M0 0-1.5 2.6M2.4 0 1.6-1M2.4 0 1.6 1" stroke="#f2d98a" stroke-width=".9" fill="none"/></g>`}
+  <circle cx="${a[0]}" cy="${a[1]}" r="2.6" fill="#c9b48a" stroke="#fff" stroke-width=".6"/><text x="${a[0]+4}" y="${a[1]+1.3}" font-size="4.4" fill="#fff" font-weight="700">${fromLbl}</text>
+  <circle cx="${b[0]}" cy="${b[1]}" r="2.6" fill="#5fa37c" stroke="#fff" stroke-width=".6"/><text x="${b[0]+4}" y="${b[1]+1.3}" font-size="4.4" fill="#fff" font-weight="700">${toLbl}</text>
+  <g transform="translate(${W-12} 12)" opacity=".7"><circle r="6" fill="none" stroke="#fff" stroke-width=".4"/><path d="M0-5 1.4 0 0 5-1.4 0z" fill="#fff"/><text y="-7" font-size="3.4" fill="#fff" text-anchor="middle">N</text></g></svg>`;};
+const pitchTop=(f)=>{const tr=f.track,roof=f.roof;return `<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid slice" style="width:30mm;height:42mm;display:block">
+  <rect width="120" height="80" fill="${tr?"#b5523b":"#3a3f4a"}"/>${roof==="full"||roof==="partial"?`<rect x="10" y="0" width="100" height="6" fill="#f2d98a" opacity=".9"/>`:""}${roof==="full"?`<rect x="10" y="74" width="100" height="6" fill="#f2d98a" opacity=".9"/><rect x="0" y="10" width="6" height="60" fill="#f2d98a" opacity=".9"/><rect x="114" y="10" width="6" height="60" fill="#f2d98a" opacity=".9"/>`:""}
+  <rect x="${tr?13:8}" y="${tr?11:8}" width="${tr?94:104}" height="${tr?58:64}" rx="${tr?3:0}" fill="${f.surface==="a"?"#3f8a57":"#2f6b45"}"/>${[...Array(9)].map((_,i)=>`<rect x="${(tr?17:12)+i*9.6}" y="${tr?15:12}" width="4.8" height="${tr?50:56}" fill="#fff" opacity=".05"/>`).join("")}
+  <g fill="none" stroke="#fff" stroke-width=".7"><rect x="${tr?17:12}" y="${tr?15:12}" width="${tr?86:96}" height="${tr?50:56}"/><line x1="60" y1="${tr?15:12}" x2="60" y2="${tr?65:68}"/><circle cx="60" cy="40" r="7"/><rect x="${tr?17:12}" y="29" width="12" height="22"/><rect x="${tr?91:96}" y="29" width="12" height="22"/></g></svg>`;};
+
 function rMatch(){
   if(!next)return sheet(head("Matchday programme · برنامج المباراة","No fixture announced","لا توجد مباراة معلنة",""),`<p>The next fixture has not been published yet. · لم تُنشر المباراة القادمة بعد.</p>`,1);
   const o=opp(next),H=next.home===US,u=row(US)||[],t=row(o)||[];
-  const w=next.weather||{};const f=facts(next.venue);const k=dist(next.venue);
-  const form=playedL.filter(m=>m.comp==="league").slice(-5).map(m=>`<span class="rpw ${res(m)}">${res(m)}</span>`).join("");
-  const met=playedL.filter(m=>opp(m)===o);
+  const w=next.weather||{};const f=facts(next.venue);
+  const city=cityOf(next.venue),ci=(DATA.cities||{})[city]||null;
+  const vg=(DATA.venues||{})[next.venue]||[];const vLL=vg[1]?[+vg[1],+vg[2]]:ci&&ci.ll;
+  const oppCity=(DATA.teamCities||{})[o],oci=(DATA.cities||{})[oppCity]||null;
+  const route=(TRAVEL.routes||{})[next.venue]||null;
+  const kmFromBase=dist(next.venue);
+  const daysTo=Math.max(0,Math.round((dd(next.date)-dd(today))/864e5));
+  const round=next.comp==="cup"?["KING'S CUP","كأس الملك"]:["MATCHDAY "+next.round,"الجولة "+next.round];
+  const crestImg=(n,h)=>logo(n)?`<img src="${logo(n)}" style="height:${h}mm;width:${h}mm;object-fit:contain;filter:drop-shadow(0 2mm 3mm rgba(0,0,0,.35))">`:"";
+  const ft=`<div class="rpF"><span>AlUla SC Match Centre · نادي العلا مركز المباريات${author()?" · "+author():""}</span><span>Sources: saff.com.sa, club logistics plan · المصادر: موقع الاتحاد وخطة اللوجستيات</span><span>Printed ${fE(today)}</span></div>`;
+
+  /* ---------- page 1: cover with scoreboard and ticket ---------- */
+  const p1=`<section class="rps mp fix">
+   <div class="mpc">
+     <svg class="mpbg" viewBox="0 0 210 200" preserveAspectRatio="none"><defs><linearGradient id="mpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2e4a72"/><stop offset="1" stop-color="#16243a"/></linearGradient></defs><rect width="210" height="200" fill="url(#mpg)"/>
+     ${[...Array(12)].map((_,i)=>`<rect x="${-40+i*26}" y="-20" width="13" height="260" fill="#fff" opacity=".025" transform="rotate(18 105 100)"/>`).join("")}
+     <g fill="none" stroke="#fff" stroke-width=".45" opacity=".16" transform="rotate(18 105 100)"><rect x="5" y="20" width="200" height="160"/><line x1="105" y1="20" x2="105" y2="180"/><circle cx="105" cy="100" r="22"/><rect x="5" y="62" width="30" height="76"/><rect x="175" y="62" width="30" height="76"/></g></svg>
+     <div class="mptop"><span>AlUla SC · نادي العلا</span><span>${SEA.league?SEA.league[0]:""} · ${SEA.label?SEA.label[0]:SKEY}</span></div>
+     <div class="mpround">${round[0]}<span class="ar">${round[1]}</span></div>
+     <div class="mpvs">
+       <div class="mpt">${crestImg(next.home,40)}<b>${tn(next.home)}</b><span class="ar">${next.home}</span><i>${H?"HOME · المستضيف":"HOST · المستضيف"}</i>${row(next.home)?`<div class="mppos">${row(next.home)[1]}<small>${["","st","nd","rd"][row(next.home)[1]]||"th"}</small><span>${row(next.home)[2]} pts · نقطة</span></div>`:""}</div>
+       <div class="mpsb"><div class="mpsbl">KICK OFF · ضربة البداية</div>${board(next.time||"  :  ",20)}<div class="mpsbl">${fE(next.date)} · ${fA(next.date)}</div></div>
+       <div class="mpt">${crestImg(next.away,40)}<b>${tn(next.away)}</b><span class="ar">${next.away}</span><i>VISITORS · الضيف</i>${row(next.away)?`<div class="mppos">${row(next.away)[1]}<small>${["","st","nd","rd"][row(next.away)[1]]||"th"}</small><span>${row(next.away)[2]} pts · نقطة</span></div>`:""}</div>
+     </div>
+     <div class="mpcount"><b>${daysTo}</b><span>${daysTo===1?"day":"days"} to go<span class="ar">${daysTo===0?"اليوم":"يوم متبقي"}</span></span></div>
+   </div>
+   <div class="mptk">
+     <div class="tkm"><div class="tkh">MATCH TICKET <span class="ar">تذكرة المباراة</span></div>
+       <div class="tkg">
+        <div><span>Fixture · المباراة</span><b>${tn(next.home)} v ${tn(next.away)}</b></div>
+        <div><span>Competition · البطولة</span><b>${next.comp==="cup"?"King's Cup":"League, round "+next.round}</b></div>
+        <div><span>Date · التاريخ</span><b>${fE(next.date)}</b></div>
+        <div><span>Kick off · الموعد</span><b>${next.time||"To be confirmed"}</b></div>
+        <div style="grid-column:span 2"><span>Ground · الملعب</span><b>${venEn(next.venue)}</b><em class="ar">${next.venue}</em></div>
+       </div></div>
+     <div class="tks"><div class="tkh">STUB <span class="ar">قسيمة</span></div><div class="tkbig">${next.time||"TBC"}</div><div class="tkd">${fE(next.date)}</div>
+       <svg viewBox="0 0 60 14" style="width:100%;height:9mm;margin-top:2mm">${[...Array(30)].map((_,i)=>`<rect x="${i*2}" y="0" width="${[1,.5,1.4,.6,1,.4][i%6]}" height="14" fill="#262c36"/>`).join("")}</svg></div>
+   </div>${ft}</section>`;
+
+  /* ---------- page 2: the contest ---------- */
   const ppg=r=>r&&r[3]?(r[2]/r[3]).toFixed(2):"0";
-  const tape=[["Position","المركز",u[1],t[1],true],["Points","النقاط",u[2],t[2]],["Won","فوز",u[4],t[4]],["Drawn","تعادل",u[5],t[5]],["Lost","خسارة",u[6],t[6],true],["Scored","له",u[7],t[7]],["Conceded","عليه",u[8],t[8],true],["Points per game","معدل النقاط",ppg(u),ppg(t)]];
-  const tapeH=tape.map(([e,a,x,y,low])=>{x=+x||0;y=+y||0;
-    /* longer bar means better: the better side is full length, the other is scaled */
-    const sc2=(v,o)=>{if(v===o)return 100;const good=low?v<o:v>o;if(good)return 100;const r=low?(Math.max(v,.0001)?Math.max(o,0)/Math.max(v,.0001):0):(o?v/o:0);return Math.max(6,Math.min(100,r*100));};
-    const wx=sc2(x,y),wy=sc2(y,x);
-    return `<div class="side a"><span class="v">${x}</span><div class="bar" style="width:${wx*.8}%"></div></div><div class="lb">${e}<span class="ar">${a}</span></div><div class="side b"><span class="v">${y}</span><div class="bar" style="width:${wy*.8}%"></div></div>`;}).join("");
-  const hdr=head(`Matchday programme · ${next.comp==="cup"?"King's Cup":"League round "+next.round}`,`${tn(next.home)} v ${tn(next.away)}`,`${next.home} ضد ${next.away}`,
-    `<span>${fE(next.date)} · ${next.time||"Time to be confirmed"}</span><span class="ar">${fA(next.date)} · ${next.time?"الساعة "+next.time:"الموعد لم يتأكد"}</span>`);
-  const crestRow=`<div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6mm;text-align:center">
-    <div>${logo(next.home)?`<img src="${logo(next.home)}" style="height:22mm;object-fit:contain">`:""}<div style="font-family:var(--dinc);font-size:15px;color:#2e4a72;margin-top:2mm">${tn(next.home)}</div><div class="ar" style="font-weight:700">${next.home}</div><div class="rpnote">Home · المستضيف</div></div>
-    <div style="font-family:var(--dinc);font-size:34px;color:#8a7548;letter-spacing:.05em">VS<div style="font-size:11px;color:#2e4a72;letter-spacing:.1em">${next.time||"TBC"}</div></div>
-    <div>${logo(next.away)?`<img src="${logo(next.away)}" style="height:22mm;object-fit:contain">`:""}<div style="font-family:var(--dinc);font-size:15px;color:#2e4a72;margin-top:2mm">${tn(next.away)}</div><div class="ar" style="font-weight:700">${next.away}</div><div class="rpnote">Away · الضيف</div></div></div>`;
-  const kv=`<div class="rpk"><div><b>${u[1]||"?"}</b><span>AlUla position · مركز العلا</span></div><div><b>${t[1]||"?"}</b><span>${tn(o)} position · مركز ${o}</span></div><div><b>${w.t!=null?w.t+"°":"?"}</b><span>At kick off · وقت المباراة${w.src==="forecast"?" (forecast · توقع)":w.src==="typical"?" (typical · معتاد)":""}</span></div><div><b>${k==null?"?":k<5?"Home":k.toLocaleString("en")}</b><span>${k==null?"Distance · المسافة":k<5?"Home ground · ملعبنا":"km from Madinah · كم من المدينة"}</span></div></div>`;
-  const venue=`<div><div class="rpT"><span><b>The ground</b></span><span class="ar">الملعب</span></div><div style="font-size:10px;line-height:1.5"><b style="color:#2e4a72">${venEn(next.venue)}</b><div class="ar" style="font-weight:700">${next.venue}</div>
-    <div class="gc" style="grid-template-columns:1fr;border:0;margin-top:2mm"><div class="ff" style="display:flex;flex-wrap:wrap;gap:1.5mm">${f.cap?`<span style="background:#ebe8e3;border-radius:4px;padding:.6mm 1.6mm;font-size:8.5px">Capacity ${f.cap} · السعة</span>`:""}${f.surface&&SURF[f.surface]?`<span style="background:#ebe8e3;border-radius:4px;padding:.6mm 1.6mm;font-size:8.5px">${SURF[f.surface][0]} · ${SURF[f.surface][1]}</span>`:""}${f.roof&&ROOF[f.roof]?`<span style="background:#ebe8e3;border-radius:4px;padding:.6mm 1.6mm;font-size:8.5px">${ROOF[f.roof][0]} · ${ROOF[f.roof][1]}</span>`:""}${f.track!=null?`<span style="background:#ebe8e3;border-radius:4px;padding:.6mm 1.6mm;font-size:8.5px">${f.track?"Running track · مضمار":"No running track · بدون مضمار"}</span>`:""}</div></div>
-    ${w.t!=null?`<div class="rpnote">Kit advice: ${w.t<=20?"long sleeves":"short sleeves"} · الطقم: ${w.t<=20?"كم طويل":"كم قصير"}</div>`:""}</div></div>`;
-  const hist=`<div><div class="rpT"><span><b>Form and history</b></span><span class="ar">المستوى والمواجهات</span></div><div style="font-size:10px;line-height:1.7">
-    <div>AlUla last five league games · آخر خمس مباريات للعلا: ${form||"none yet · لا يوجد"}</div>
-    ${met.length?met.map(m=>`<div>${fE(m.date)}: ${tn(m.home)} v ${tn(m.away)}, AlUla ${sc(m)} · ${m.home} ضد ${m.away}، العلا ${scA(m)}</div>`).join(""):`<div>No meeting this season yet · لا توجد مواجهة هذا الموسم</div>`}
-    ${(next.changes||[]).length?`<div style="margin-top:1mm;color:#8a7548">This fixture was changed ${next.changes.length} time${next.changes.length>1?"s":""} · عُدّلت ${next.changes.length} مرة</div>`:""}</div></div>`;
-  return sheet(hdr,`${crestRow}${kv}${T("01","Tale of the tape","مقارنة الفريقين")}<div class="tape" style="row-gap:2.2mm">${tapeH}</div><div class="rpnote" style="text-align:center;margin-top:-3mm">Longer bar means better · الشريط الأطول أفضل</div><div class="rp2">${venue}${hist}</div>`,1);
+  const tape=[["Position","المركز",u[1],t[1],1],["Points","النقاط",u[2],t[2]],["Won","فوز",u[4],t[4]],["Lost","خسارة",u[6],t[6],1],["Scored","له",u[7],t[7]],["Conceded","عليه",u[8],t[8],1],["Points per game","معدل النقاط",ppg(u),ppg(t)]];
+  const arrows=tape.map(([e,a,x,y,low],i)=>{x=+x||0;y=+y||0;const usBetter=low?x<y:x>y,eq=x===y;const yy=14+i*15;
+    const L=(v,o)=>{if(v===o)return 38;const good=low?v<o:v>o;return good?46:Math.max(8,46*(low?(o||.1)/(v||.1):(v/(o||.1))));};
+    const lx=L(x,y),ly=L(y,x);
+    return `<text x="100" y="${yy-3.2}" font-size="3.4" fill="#e9e3d6" text-anchor="middle" letter-spacing=".3">${e.toUpperCase()} · ${a}</text>
+      <path d="M96 ${yy} L${96-lx} ${yy}" stroke="#c9b48a" stroke-width="${usBetter?3.2:2}" stroke-linecap="round" opacity="${usBetter||eq?1:.55}"/><path d="M${96-lx} ${yy-2.2} ${92-lx} ${yy} ${96-lx} ${yy+2.2}" fill="#c9b48a" opacity="${usBetter||eq?1:.55}"/>
+      <path d="M104 ${yy} L${104+ly} ${yy}" stroke="#ffffff" stroke-width="${!usBetter&&!eq?3.2:2}" stroke-linecap="round" opacity="${!usBetter||eq?1:.5}"/><path d="M${104+ly} ${yy-2.2} ${108+ly} ${yy} ${104+ly} ${yy+2.2}" fill="#ffffff" opacity="${!usBetter||eq?1:.5}"/>
+      <text x="${88-lx}" y="${yy+1.4}" font-size="5" fill="#f2d98a" text-anchor="end" font-weight="700">${x}</text><text x="${112+ly}" y="${yy+1.4}" font-size="5" fill="#fff" font-weight="700">${y}</text>`;}).join("");
+  const chalk=`<svg viewBox="0 0 200 118" style="width:100%;display:block;background:#244d36;border-radius:10px">
+    <g fill="none" stroke="#fff" stroke-width=".35" opacity=".22"><rect x="4" y="4" width="192" height="110"/><line x1="100" y1="4" x2="100" y2="114"/><circle cx="100" cy="59" r="14"/><rect x="4" y="34" width="22" height="50"/><rect x="174" y="34" width="22" height="50"/></g>
+    <text x="8" y="9" font-size="3.6" fill="#f2d98a" font-weight="700">${tn(US).toUpperCase()}</text><text x="192" y="9" font-size="3.6" fill="#fff" text-anchor="end" font-weight="700">${tn(o).toUpperCase()}</text>${arrows}</svg>`;
+  const form=playedL.filter(m=>m.comp==="league").slice(-5);
+  const formStrip=form.map(m=>{const r=res(m),g=gfga(m);return `<div class="fs ${r}"><b>${r==="W"?"W":r==="D"?"D":"L"}</b><span>${g[0]} ${g[1]}</span><i>${tn(opp(m))}</i><em>${m.home===US?"H":"A"}</em></div>`;}).join("");
+  const met=playedL.filter(m=>opp(m)===o);
+  const pos=t[1]||0,band=rows.filter(r=>Math.abs(r[1]-(u[1]||1))<=1||Math.abs(r[1]-pos)<=1).sort((a,b)=>a[1]-b[1]);
+  const mini=`<table class="rptab"><tr><th>#</th><th style="text-align:left">Club · النادي</th><th>P</th><th>GD</th><th>Pts</th></tr>${band.map(r=>`<tr class="${r[0]===US?"us":r[0]===o?"op":""}"><td>${r[1]}</td><td class="l">${img(r[0])}${tn(r[0])} <span class="ar" style="color:#736d66">${r[0]}</span></td><td>${r[3]}</td><td>${r[7]-r[8]>0?"+":""}${r[7]-r[8]}</td><td><b>${r[2]}</b></td></tr>`).join("")}</table>`;
+  const chg=(next.changes||[]);
+  const p2=`<section class="rps fix">${head(`${round[0]} · ${round[1]}`,"The contest","المواجهة",`<span>${tn(next.home)} v ${tn(next.away)} · ${next.home} ضد ${next.away}</span>`)}<div class="rpB">
+    ${T("01","Tactics board: tale of the tape","السبورة التكتيكية: مقارنة الفريقين")}${chalk}<div class="rpnote" style="text-align:center;margin-top:-3mm">Gold arrows AlUla, white arrows ${tn(o)}. The bolder arrow is the better figure. · الأسهم الذهبية للعلا والبيضاء لـ${o}، والسهم الأعرض هو الأفضل.</div>
+    <div class="rp2"><div>${T("02","Form: last five league games","المستوى: آخر خمس مباريات")}<div class="fstrip">${formStrip||"<p>No games yet · لا توجد مباريات</p>"}</div>
+      ${T("03","Head to head this season","المواجهة هذا الموسم")}<div style="font-size:9.5px;line-height:1.6">${met.length?met.map(m=>`<div>${fE(m.date)}: ${tn(m.home)} ${m.score[0]} v ${m.score[1]} ${tn(m.away)} · ${m.home} ${m.score[0]} مقابل ${m.score[1]} ${m.away}</div>`).join(""):`First meeting this season · أول مواجهة هذا الموسم`}</div></div>
+      <div>${T("04","Where they stand","موقع الفريقين في الترتيب")}${mini}
+      ${chg.length?`${T("05","Fixture history","تاريخ تعديل المباراة")}${chg.map(c=>`<div class="sub" style="grid-template-columns:1fr 1fr"><div class="brd off"><span class="t"><i></i>OFF · خرج</span><span class="x">${(c.from||[])[0]||""}</span><span class="ar">${(c.from||[])[1]||""}</span></div><div class="brd on"><span class="t"><i></i>ON · دخل</span><span class="x">${(c.to||[])[0]||""}</span><span class="ar">${(c.to||[])[1]||""}</span></div></div>`).join("")}`:""}</div></div>
+  </div>${ft}</section>`;
+
+  /* ---------- page 3: the journey and the ground ---------- */
+  const away=!H;
+  const destLL=away?(ci&&ci.ll)||vLL:MED.ll;
+  const mode=away?(ci&&ci.direct==="train"?"train":"air"):(oci&&oci.direct==="train"?"train":"air");
+  const passFrom=away?{code:MED.code,city:"MADINAH",ar:"المدينة المنورة"}:{code:(oci&&oci.code)||"?",city:(oci&&oci.en||oppCity||"").toUpperCase(),ar:oppCity||""};
+  const passTo=away?{code:(ci&&ci.code)||"?",city:(ci&&ci.en||city).toUpperCase(),ar:city}:{code:MED.code,city:"MADINAH",ar:"المدينة المنورة"};
+  const C=away?ci:oci;
+  const directTxt=c=>!c?["Not known","غير معروف"]:c.direct==="yes"?["Direct flights","رحلات مباشرة"]:c.direct==="limited"?["Few direct flights","رحلات مباشرة قليلة"]:c.direct==="train"?["Haramain train","قطار الحرمين"]:["Connection needed","يحتاج ترانزيت"];
+  const dt=directTxt(C);
+  const mins=m=>m==null?"?":m>=60?`${Math.floor(m/60)}h ${String(m%60).padStart(2,"0")}`:`${m} min`;
+  const airToGround=away&&ci&&ci.gw&&vLL?Math.round(hav2(ci.gw,vLL)):(!away&&vLL?Math.round(hav2(MED.ll,vLL)):null);
+  const pass=`<div class="bp"><div class="bpm"><div class="bph"><span>${mode==="train"?"RAIL PASS · تذكرة القطار":"BOARDING PASS · بطاقة صعود"}</span><span>${away?"AlUla SC travelling party":tn(o)+" travelling party"}</span></div>
+    <div class="bpr"><div><b>${passFrom.code}</b><span>${passFrom.city}</span><em class="ar">${passFrom.ar}</em></div>
+      <svg viewBox="0 0 60 12" style="width:34mm"><line x1="2" y1="6" x2="58" y2="6" stroke="#2e4a72" stroke-width=".8" stroke-dasharray="${mode==="train"?"0":"2 1.5"}"/>${mode==="train"?`<rect x="24" y="2" width="12" height="7" rx="2" fill="#2e4a72"/><circle cx="27" cy="10" r="1" fill="#2e4a72"/><circle cx="33" cy="10" r="1" fill="#2e4a72"/>`:`<path d="M26 6h10M32 6l-3-4M32 6l-3 4M35 6l-1-1.5M35 6l-1 1.5" stroke="#2e4a72" stroke-width="1.2" fill="none"/>`}</svg>
+      <div style="text-align:right"><b>${passTo.code}</b><span>${passTo.city}</span><em class="ar">${passTo.ar}</em></div></div>
+    <div class="bpg"><div><span>Mode · الوسيلة</span><b>${mode==="train"?"Train · قطار":"Flight · طيران"}</b></div><div><span>Service · الخدمة</span><b>${dt[0]}</b><em class="ar">${dt[1]}</em></div><div><span>${mode==="train"?"Train time":"Air time"} · مدة الرحلة</span><b>${C?mins(C.air):"?"}</b></div><div><span>${away?"Then by coach · بعدها بالباص":"Airport to ground · من المطار للملعب"}</span><b>${away?(C?mins(C.ground):"?"):(airToGround!=null?"about "+airToGround+" km":"?")}</b></div>
+      ${away?`<div><span>Party · البعثة</span><b>${TRAVEL.party?TRAVEL.party.players+" players, "+TRAVEL.party.staff+" staff":"?"}</b></div>`:`<div><span>Distance to Madinah · المسافة</span><b>${oci&&oci.ll?Math.round(hav2(oci.ll,MED.ll)).toLocaleString("en")+" km":"?"}</b></div>`}
+      <div><span>Straight line · خط مستقيم</span><b>${away&&kmFromBase?kmFromBase.toLocaleString("en")+" km":"Home · أرضنا"}</b></div></div></div>
+    <div class="bps"><span>GATE · البوابة</span><b>${passTo.code}</b><span>DAY · اليوم</span><b>${fE(next.date).split(" ").slice(0,3).join(" ")}</b></div></div>`;
+  const map=flightMap(away?MED.ll:(oci&&oci.ll)||MED.ll,away?destLL:MED.ll,away?"Madinah":(oci&&oci.en)||oppCity||"",away?(ci&&ci.en)||city:"Madinah",mode);
+  const cityCard=`<div class="cc"><div class="cch"><b>${away?(ci&&ci.en)||city:"Madinah"}</b><span class="ar">${away?city:"المدينة المنورة"}</span><i>${away?(ci&&ci.region?ci.region[0]+" · "+ci.region[1]:""):"Home city · مدينتنا"}</i></div>
+    <div class="ccg"><div><span>Airport · المطار</span><b>${away?(ci&&ci.airport?ci.airport[0]:"?"):MED.en+" (MED)"}</b><em class="ar">${away?(ci&&ci.airport?ci.airport[1]:""):MED.ar}</em></div>
+    <div><span>Airport in the city · مطار داخل المدينة</span><b>${away?(ci?(ci.inCity?"Yes · نعم":"No, transfer by coach · لا، النقل بالباص"):"?"):"Yes · نعم"}</b></div>
+    <div><span>Airport to ground · من المطار للملعب</span><b>${airToGround!=null?"about "+airToGround+" km in a straight line · قرابة "+airToGround+" كم بخط مستقيم":"?"}</b><em>${away&&ci?"Coach transfer about "+mins(ci.ground)+" · النقل بالباص قرابة "+ci.ground+" دقيقة":""}</em></div>
+    ${away&&ci&&ci.note?`<div><span>Travel note · ملاحظة السفر</span><b>${ci.note[0]}</b><em class="ar">${ci.note[1]}</em></div>`:""}
+    ${away&&route?`<div><span>Hotel area · منطقة السكن</span><b>${route.hotelArea[0]}</b><em class="ar">${route.hotelArea[1]}</em></div><div><span>Training the day before · تدريب اليوم السابق</span><b>${route.pitch[0]}</b><em class="ar">${route.pitch[1]}</em></div>`:""}
+    ${!away?`<div><span>Visitors · الفريق الضيف</span><b>${tn(o)} travel from ${(oci&&oci.en)||oppCity||"?"}${oci?", "+directTxt(oci)[0].toLowerCase():""}</b><em class="ar">${o} يسافر من ${oppCity||"؟"}</em></div>`:""}</div></div>`;
+  const tl=away?[["Day before","اليوم السابق",`${mode==="train"?"Train":"Flight"} from Madinah ${C?mins(C.air):"?"}, coach ${C?mins(C.ground):"?"} to the hotel, then training · ${mode==="train"?"قطار":"طيران"} من المدينة ثم باص للفندق ثم تدريب`],["Match day","يوم المباراة",`Coach to the ground about two hours before kick off at ${next.time||"TBC"} · الباص للملعب قبل ضربة البداية بساعتين تقريبا`]]
+    :[["Match day","يوم المباراة","Squad meets at the ground about two hours before kick off · تجمع الفريق في الملعب قبل المباراة بساعتين تقريبا"],["Kick off","ضربة البداية",`${next.time||"TBC"} Saudi time · بتوقيت السعودية`]];
+  const timeline=`<div class="tl">${tl.map(([e,a,d])=>`<div><i></i><b>${e}</b><span class="ar">${a}</span><p>${d}</p></div>`).join("")}</div>`;
+  const ground=`<div class="gd">${pitchTop(f)}<div class="gdi"><b>${venEn(next.venue)}</b><span class="ar">${next.venue}</span>
+     <div class="ff">${f.cap?`<span>Capacity ${f.cap} · السعة</span>`:""}${f.surface&&SURF[f.surface]?`<span>${SURF[f.surface][0]} · ${SURF[f.surface][1]}</span>`:""}${f.roof&&ROOF[f.roof]?`<span>${ROOF[f.roof][0]} · ${ROOF[f.roof][1]}</span>`:""}${f.track!=null?`<span>${f.track?"Running track · مضمار":"No running track · بدون مضمار"}</span>`:""}</div>
+</div></div>`;
+  const wxBox=`<div class="wx"><div class="wxt"><b>${w.t!=null?w.t+"°C":"?"}</b><span>At kick off · وقت المباراة</span><em>${w.src==="forecast"?"Forecast · توقعات":w.src==="observed"?"Observed · مرصود":"Typical for the month and hour · المعتاد لهذا الشهر والساعة"}</em></div>${w.t!=null?`<div class="wxk">${kitSvg(w.t<=20)}<span>${w.t<=20?"Long sleeves · كم طويل":"Short sleeves · كم قصير"}</span></div>`:""}</div>`;
+  const p3=`<section class="rps rpj fix">${head(`${round[0]} · ${round[1]}`,away?"The journey":"Matchday at home","الرحلة والملعب",`<span>${away?"Away trip to "+((ci&&ci.en)||city):"Home fixture in Madinah"} · ${away?"رحلة إلى "+city:"مباراة على أرضنا في المدينة المنورة"}</span>`)}<div class="rpB">
+     ${T("01",away?"Boarding pass":"The visitors' trip to us","بطاقة السفر")}${pass}
+     <div class="rp2"><div>${T("02","Route","المسار")}${map}<div class="rpnote">Schematic map, straight line distances. · خريطة توضيحية والمسافات بخط مستقيم.</div></div><div>${T("03","The city","المدينة")}${cityCard}</div></div>
+     <div class="rp2"><div>${T("04","The ground","الملعب")}${ground}</div><div>${T("05","Kick off weather and plan","الطقس وخطة يوم المباراة")}${wxBox}<div style="height:3mm"></div>${timeline}<div class="rpnote">Suggested outline from the logistics plan. · مخطط مقترح من خطة اللوجستيات.</div></div></div>
+  </div>${ft}</section>`;
+  return p1+p2+p3;
 }
 
 /* 2. Ground guide */
