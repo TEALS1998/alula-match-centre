@@ -4374,6 +4374,8 @@ setTimeout(party,700);
 <style>
 .rpbtn{cursor:pointer;font:inherit;color:inherit}
 .rpbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+.rptop{gap:6px!important;padding:7px 11px!important;margin-left:-8px;cursor:pointer;border:0}
+@media (max-width:1440px){.rptop .ar{display:none}.rptop{padding:7px 9px!important}}
 .rpfab{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:8px;background:#2e4a72;color:#fff!important;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:11px 18px 11px 15px;font-size:13px;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 26px -8px rgba(20,35,58,.55);transition:transform .25s ease,box-shadow .25s ease}
 .rpfab:hover{transform:translateY(-2px);box-shadow:0 14px 30px -8px rgba(20,35,58,.6)}
 .rpfab .ar{font-weight:600;opacity:.9;letter-spacing:0}
@@ -4471,7 +4473,7 @@ setTimeout(party,700);
 #rpOv .km .b{height:7px;border-radius:4px;background:linear-gradient(90deg,#2e4a72,#8f6e52)}
 
 /* matchday programme */#rpOv .rps.mp{background:#16243a}
-#rpOv .rpj .rpB{gap:3mm;padding-top:5mm}
+#rpOv .rpj .rpB{gap:3mm;padding-top:4mm}
 #rpOv .rpj .rpT{margin-bottom:2mm}
 #rpOv .rpj .tl p{font-size:8.5px}
 #rpOv .rpj .rpH{padding-top:10mm;padding-bottom:6mm}
@@ -4636,18 +4638,19 @@ setTimeout(party,700);
   #rpOv .rps.fix .rpB{overflow:hidden;min-height:0}
   #rpOv .rps.fix .rpB>*{flex-shrink:0}
 }
-#rpOv .rpH{background:#14233a!important;padding-bottom:12mm!important}
-#rpOv .rpH::after{content:"";position:absolute;left:0;right:0;bottom:0;height:.6mm;background:linear-gradient(90deg,transparent,#c9b48a 30%,#c9b48a 70%,transparent);opacity:.7}
-#rpOv .rpH svg.bg2{position:absolute;inset:0;width:100%;height:100%}
-#rpOv .rpH>*:not(svg){position:relative}
-#rpOv .rpH .crest{position:absolute!important;filter:drop-shadow(0 1.5mm 3mm rgba(0,0,0,.4))}
-#rpOv .rpH .kick{color:#c9b48a;opacity:1}
-#rpOv .hstrip{position:absolute!important;right:12mm;bottom:4.5mm;display:flex;align-items:center;gap:2.5mm}
-#rpOv .hstrip span{font-family:var(--dinc);font-size:6.5px;letter-spacing:.18em;color:#9fb0c8}
-#rpOv .hstrip div{display:flex;gap:.45mm}
-#rpOv .hsg{display:block;width:1.5mm;height:2.6mm;border-radius:.3mm;background:rgba(255,255,255,.12)}
-#rpOv .hsg.W{background:#5fa37c}#rpOv .hsg.D{background:#d2a941}#rpOv .hsg.L{background:#c96f68}#rpOv .hsg.nx{background:#fff;height:3.6mm}
-@media screen and (prefers-reduced-motion:no-preference){#rpOv #rpPaper.rpa .mo-in .hsg{animation:moSeg .4s ease both;animation-delay:calc(var(--i)*25ms + 200ms)}#rpOv #rpPaper.rpa .mo-in .hsg.nx{animation:moSeg .4s ease both,moPulse 2.8s ease-in-out 2s infinite}}
+#rpOv .rpE{background:transparent;color:#1b2d4a;padding:9mm 12mm 0;position:relative}
+#rpOv .rpE .eTop{display:flex;justify-content:space-between;align-items:center;font-family:var(--dinc);font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:#8f6e52;padding-bottom:2.4mm;border-bottom:.25mm solid rgba(27,45,74,.35)}
+#rpOv .rpE .eTop span:first-child{display:flex;align-items:center;gap:2.4mm}
+#rpOv .rpE .eTop i{display:block;width:6mm;height:.6mm;background:#c9b48a}
+#rpOv .rpE .eTop span:last-child{letter-spacing:.18em;color:#7a8597}
+#rpOv .rpE .eMain{display:grid;grid-template-columns:1fr auto;align-items:end;gap:8mm;padding-top:6mm}
+#rpOv .rpE h1{margin:0;font-family:var(--dinc);font-weight:700;font-size:38px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:#1b2d4a}
+#rpOv .rpE .eAr{margin-top:2.2mm;font-size:19px;font-weight:700;color:#8f6e52;direction:rtl;text-align:left;unicode-bidi:plaintext}
+#rpOv .rpE .eMeta{display:flex;flex-wrap:wrap;gap:4mm;margin-top:2.6mm;font-size:9.5px;color:#6b7383;letter-spacing:.02em}
+#rpOv .rpE .eCr{width:17mm;height:17mm;object-fit:contain;margin-bottom:1mm}
+#rpOv .rpE .eRule{margin-top:5mm;height:1.5mm;background:linear-gradient(#1b2d4a 0 .6mm,transparent .6mm 1.1mm,#c9b48a 1.1mm 1.5mm)}
+@media screen and (prefers-reduced-motion:no-preference){#rpPaper.rpa .rps .eRule{transform-origin:left;transform:scaleX(0)}#rpPaper.rpa .rps.mo-in .eRule{transform:none;transition:transform 1.2s cubic-bezier(.4,0,.2,1) .25s}#rpPaper.rpa .rps .eTxt{opacity:0;transform:translateY(6px)}#rpPaper.rpa .rps.mo-in .eTxt{opacity:1;transform:none;transition:opacity .8s ease .1s,transform .8s ease .1s}}
+@media print{#rpOv .rpE .eRule{transform:none!important}#rpOv .rpE .eTxt{opacity:1!important;transform:none!important}}
 </style>
 <div class="rpov" id="rpOv" role="dialog" aria-label="Reports · التقارير">
   <div class="rpmenu" id="rpMenu"></div>
@@ -4691,7 +4694,7 @@ const headBg=()=>`<svg class="bg2" viewBox="0 0 210 60" preserveAspectRatio="xMi
 const seasonStrip=()=>{const N=(SEA.totalRounds||34),byR={};MATCHES.filter(m=>m.comp==="league"&&typeof m.round==="number").forEach(m=>byR[m.round]=m);let c="";
   for(let r=1;r<=N;r++){const m=byR[r],rr=m?res(m):null,nx=next&&m&&m.id===next.id;c+=`<i class="hsg${rr?" "+rr:""}${nx?" nx":""}" style="--i:${r}"></i>`;}
   return `<div class="hstrip"><span>SEASON · الموسم</span><div>${c}</div></div>`;};
-const head=(kick,en,arr,meta)=>`<div class="rpH">${headBg()}${seasonStrip()}<div class="kick">${kick}</div><h1>${en}<span class="ar">${arr}</span></h1><div class="meta">${meta}</div><img class="crest" src="${CREST}" alt=""></div>`;
+const head=(kick,en,arr,meta)=>`<div class="rpE"><div class="eTop"><span><i></i>${kick}</span><span>AlUla SC · نادي العلا</span></div><div class="eMain"><div class="eTxt"><h1>${en}</h1><div class="eAr">${arr}</div>${meta?`<div class="eMeta">${meta}</div>`:""}</div><img class="eCr" src="${CREST}" alt=""></div><div class="eRule"></div></div>`;
 const foot=n=>`<div class="rpF"><span>AlUla SC Match Centre · نادي العلا مركز المباريات · ${author()}</span><span>Source: saff.com.sa · المصدر: موقع الاتحاد السعودي لكرة القدم · Printed ${fE(today)}</span><span>${n}</span></div>`;
 const sheet=(h,b,n)=>`<section class="rps">${h}<div class="rpB">${b}</div>${foot(n)}</section>`;
 
@@ -5040,9 +5043,9 @@ $("#rpBack").onclick=()=>{menu.hidden=false;bar.hidden=true;paper.innerHTML="";}
 $("#rpPrint").onclick=()=>{try{window.print();}catch(e){alert("Press Ctrl+P · اضغطي Ctrl+P");}};
 ov.addEventListener("click",e=>{if(e.target===ov)close();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ov.classList.contains("on"))close();});
-const btn=document.createElement("button");btn.className="rpbtn rpfab";btn.type="button";
-btn.innerHTML=`<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6M9 7h3"/></svg>Reports<span class="ar">التقارير</span>`;
-btn.onclick=open;btn.setAttribute("aria-label","Reports");document.body.appendChild(btn);
+const btn=document.createElement("button");btn.className="chipw hot rpbtn rptop";btn.type="button";
+btn.innerHTML=`<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6M9 7h3"/></svg><span class="ar">التقارير</span>`;
+btn.onclick=open;btn.setAttribute("aria-label","Reports");btn.title="Reports · التقارير";const tsp=document.querySelector(".top-in .tsp");if(tsp)tsp.after(btn);else document.body.appendChild(btn);
 window.__RP={open,R};
 }catch(e){console.error("reports",e);}})();
 </script>
