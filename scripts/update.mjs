@@ -22,8 +22,8 @@ function diag(name, html) {
   if (!process.env.SAFF_DIAG) return;
   console.log(`[diag] ${name}: ${html.length} chars, <tr> ${(html.match(/<tr/gi)||[]).length}, العلا ${(html.match(/العلا/g)||[]).length}`);
   let i = -1, n = 0;
-  for (const key of ["نقاط", "العلا"]) { i = -1; n = 0;
-    while ((i = html.indexOf(key, i + 1)) >= 0 && n < 3) { console.log(`[diag] ${name} @${key}#${n}: ` + html.slice(Math.max(0, i - 700), i + 500).replace(/\s+/g, " ")); n++; i += 2000; } }
+  for (const key of ["نقاط", "العلا", "Ula", "ULA", "&#1575;", "<html", "<tr"]) { i = -1; n = 0;
+    while ((i = html.indexOf(key, i + 1)) >= 0 && n < 3) { console.log(`[diag] ${name} @${key}#${n}: ` + html.slice(Math.max(0, i - 200), i + 900).replace(/\s+/g, " ")); n++; i += 2000; } }
 }
 async function get(url) {
   const r = await fetch(url, {
