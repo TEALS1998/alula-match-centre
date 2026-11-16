@@ -22,7 +22,7 @@ function diag(name, html) {
   if (!process.env.SAFF_DIAG) return;
   console.log(`[diag] ${name}: ${html.length} chars, <tr> ${(html.match(/<tr/gi)||[]).length}, العلا ${(html.match(/العلا/g)||[]).length}`);
   let i = -1, n = 0;
-  for (const key of ["نقاط", "العلا", "Ula", "ULA", "&#1575;", "<html", "<tr"]) { i = -1; n = 0;
+  for (const key of ["نقاط"]) { i = -1; n = 0;
     while ((i = html.indexOf(key, i + 1)) >= 0 && n < 3) { console.log(`[diag] ${name} @${key}#${n}: ` + html.slice(Math.max(0, i - 200), i + 900).replace(/\s+/g, " ")); n++; i += 2000; } }
 }
 async function get(url) {
@@ -33,7 +33,10 @@ async function get(url) {
     },
   });
   if (!r.ok) throw new Error(`${url} -> HTTP ${r.status}`);
-  return await r.text();
+  const buf = Buffer.from(await r.arrayBuffer());
+  // SAFF serves windows-1256 while declaring utf-8
+  const utf = buf.toString("utf8");
+  return /\uFFFD/.test(utf.slice(0, 20000)) ? new TextDecoder("windows-1256").decode(buf) : utf;
 }
 
 const decode = (s) =>
@@ -88,39 +91,38 @@ function parseTable(html, teamOf) {
 }
 
 // ---------- fixtures and results ----------
-// Walk the page text in order, remembering the latest competition heading, and pick up
-// "dd-mm-yyyy ... HH:MM ... home ... away ... (score)" blocks that involve AlUla.
-function parseMatches(html, teamOf) {
+// SAFF fixture rows: cells fixture_td_1_<id> time, _2_ home, _3_ score or "-", _4_ away, _5_ venue.
+// Dates come from calendar_date links, competitions from championship.php?id= headers.
+function parseMatches(html, teamOf, defaultSection = "") {
+  const re = /calendar_date=(\d{4}-\d{2}-\d{2})|championship\.php\?id=(\d+)['"][^>]*>([^<]+)<|id="fixture_td_(\d)_(\d+)"[^>]*>([\s\S]*?)<\/td>/g;
+  let date = null, section = defaultSection;
+  const fx = new Map();
+  for (let m; (m = re.exec(html)); ) {
+    if (m[1]) date = m[1];
+    else if (m[2]) section = text(m[3]) + " #" + m[2];
+    else {
+      const id = m[5];
+      if (!fx.has(id)) fx.set(id, { id, date, section, cells: {} });
+      const cell = m[6];
+      const tid = cell.match(/team\.php\?id=(\d+)/);
+      fx.get(id).cells[m[4]] = { t: text(cell), tid: tid ? tid[1] : null };
+    }
+  }
   const out = [];
-  const blocks = html.split(/<(?:tr|li|div)[^>]*class="[^"]*(?:match|fixture|game)[^"]*"[^>]*>|<tr[^>]*>/i);
-  let section = "";
-  for (const b of blocks) {
-    const t = text(b);
-    if (!t) continue;
-    const head = t.match(/(دوري[^0-9]{3,60}|كأس[^0-9]{3,60})/);
-    if (head && !/\d{1,2}[-/]\d{1,2}[-/]\d{4}/.test(t.slice(0, head.index))) section = head[1];
-    if (!t.includes(US)) continue;
-    const dm = t.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
-    if (!dm) continue;
-    const date = `${dm[3]}-${dm[2].padStart(2, "0")}-${dm[1].padStart(2, "0")}`;
-    const tm = t.match(/\b(\d{1,2}):(\d{2})\b/);
-    const time = tm ? `${tm[1].padStart(2, "0")}:${tm[2]}` : null;
-    const words = t.split(/[\s|]+/);
-    const teams = [];
-    for (let i = 0; i < words.length; i++)
-      for (const len of [3, 2, 1]) {
-        const k = teamOf(words.slice(i, i + len).join(" "));
-        if (k) { if (teams[teams.length - 1] !== k) teams.push(k); i += len - 1; break; }
-      }
-    if (teams.length < 2 || !teams.slice(0, 2).includes(US)) continue;
-    const rest = t.replace(dm[0], " ").replace(tm ? tm[0] : "\u0000", " ");
-    const scm = rest.match(/(?:^|\s)(\d{1,2})\s*-\s*(\d{1,2})(?:\s|$)/);
-    const sc = scm ? `${scm[1]}-${scm[2]}` : null;
-    out.push({ section, date, time, home: teams[0], away: teams[1], scoreText: sc || null, raw: t.slice(0, 300) });
+  for (const f of fx.values()) {
+    const c = f.cells;
+    if (!c[2] || !c[4] || !f.date) continue;
+    const name = (x) => (x.tid === "121" ? US : teamOf(x.t));
+    const home = name(c[2]), away = name(c[4]);
+    if (!home || !away || (home !== US && away !== US)) continue;
+    const tm = c[1] && c[1].t.match(/(\d{1,2}):(\d{2})/);
+    const sc = c[3] && c[3].t.match(/^(\d{1,2})\s*-\s*(\d{1,2})/);
+    out.push({ section: f.section, date: f.date, time: tm ? `${tm[1].padStart(2, "0")}:${tm[2]}` : null, home, away,
+      scoreText: sc ? `${sc[1]}-${sc[2]}` : null, venue: c[5] ? c[5].t : null, saffId: f.id });
   }
   return out;
 }
-const firstTeam = (sec) => FIRST_TEAM_SECTIONS.some((s) => sec.includes(s)) && !OTHER_SECTIONS.some((s) => sec.includes(s));
+const firstTeam = (sec) => / #416$/.test(sec) || (FIRST_TEAM_SECTIONS.some((s) => sec.includes(s)) && !OTHER_SECTIONS.some((s) => sec.includes(s)));
 
 const DAY_EN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], DAY_AR = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
 const MON_EN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], MON_AR = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
@@ -155,8 +157,9 @@ async function main() {
         changes.push(`table updated (AlUla ${u[1]}, ${u[2]} pts)`);
       }
       // Results listed on the league page
-      for (const m of parseMatches(html, teamOf)) applyMatch(S, m, changes, true);
+      for (const m of parseMatches(html, teamOf, "دوري الدرجة الأولى #416")) applyMatch(S, m, changes, true);
     } else log("standings not recognised, rows:", rows.length);
+    if (process.env.SAFF_DIAG) log("table rows", JSON.stringify(rows.slice(0, 3)), "league page AlUla matches", JSON.stringify(parseMatches(html, teamOf, "#416").slice(-3)));
   } catch (e) { log("standings failed:", e.message); }
 
   // Fixtures and changes from the team page
@@ -167,6 +170,7 @@ async function main() {
     if (ms.length) ok++;
     for (const m of ms) applyMatch(S, m, changes, false);
     log("first team fixtures found:", ms.length);
+    if (process.env.SAFF_DIAG) for (const m of ms) log("fx", m.date, m.time, m.home, m.scoreText || "v", m.away, "|", m.section, "|", m.venue);
   } catch (e) { log("team page failed:", e.message); }
 
   if (!ok) { log("no SAFF page could be read; data left unchanged"); process.exitCode = 0; return; }
