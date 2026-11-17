@@ -1850,6 +1850,16 @@ button,input,select,textarea{font-family:inherit}
 .stall>*{height:100%}.stall>*>.stc2{height:100%}
 @media (max-width:1100px){.stall{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media (max-width:760px){.stall{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.stchip{padding:6px 7px 6px 11px}.stchip .ar{display:none}}
+
+/* next match weather: three equal cells, English then Arabic, like the date and venue boxes */
+.wxp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px}
+.wxc{display:flex;flex-direction:column;gap:3px;padding:0 14px;min-width:0}
+.wxc:first-child{padding-inline-start:0}.wxc:last-child{padding-inline-end:0}
+.wxc+.wxc{border-inline-start:1px solid rgba(255,255,255,.14)}
+.wxe{display:flex;align-items:center;gap:7px;font-weight:700;font-size:13px;white-space:nowrap}
+.wxe .wi,.wxe .wk,.wxe svg{width:20px;height:20px;flex:none}
+.wxa{direction:rtl;text-align:right;font-weight:600;font-size:13px;opacity:.9;white-space:nowrap}
+@media (max-width:620px){.wxp{grid-template-columns:1fr}.wxc{padding:6px 0}.wxc+.wxc{border-inline-start:0;border-top:1px solid rgba(255,255,255,.12)}.wxc{flex-direction:row;justify-content:space-between;align-items:center}}
 </style>
 </head>
 <body>
@@ -2069,6 +2079,10 @@ function wxIcon(c,night){const sun=night?`<path d="M14 4a7 7 0 1 0 6 10 6 6 0 0 
 function kitIcon(long,light){const body=`M9 3 5 5 3 7v0l2.5 4L7 10.5V21h10V10.5l1.5.5L21 7l-2-2-4-2c-.6 1.6-1.7 2.4-3 2.4S9.6 4.6 9 3z`;
   const arms=long?`<path d="M5 5 1.6 7.4 2.6 19l2.6-.2.8-8.3M19 5l3.4 2.4-1 11.6-2.6-.2-.8-8.3" fill="${light?"#c8a77e":"#7a5233"}"/>`:"";
   return `<svg class="wk" viewBox="0 0 24 24" aria-hidden="true">${arms}<path d="${body}" fill="${light?"#f5efe6":"#1d2b4c"}" stroke="#c8a77e" stroke-width=".8"/><path d="M9 3c.6 1.6 1.7 2.4 3 2.4S14.4 4.6 15 3" fill="none" stroke="#c8a77e" stroke-width="1"/></svg>`;}
+function WXP(m){const w=m&&m.weather;if(!w||w.t==null)return "";const night=wxNight(m),c=w.c||"sun",L0=c==="sun"&&night?WXL.clear:c==="clear"&&!night?WXL.sun:(WXL[c]||WXL.sun),long=w.t<=20,K=long?["Long sleeves","كم طويل"]:["Short sleeves","كم قصير"],S=WXS[w.src]||WXS.typical;
+  const clk=`<svg class="wi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
+  const cell=(ic,en,ar)=>`<div class="wxc"><div class="wxe">${ic}<span>${en}</span></div><div class="wxa">${ar}</div></div>`;
+  return `<div class="wxp">${cell(wxIcon(c,night),`${w.t}° ${L0[0]}`,`${L0[1]} <bdi dir="ltr">${w.t}°</bdi>`)}${cell(kitIcon(long),K[0],K[1])}${cell(clk,S[0][0].toUpperCase()+S[0].slice(1),S[1])}</div>`;}
 function WX(m,opt){const w=m&&m.weather;if(!w||w.t==null)return "";const night=wxNight(m),c=w.c||"sun",L0=c==="sun"&&night?WXL.clear:c==="clear"&&!night?WXL.sun:(WXL[c]||WXL.sun),long=w.t<=20,K=long?["Long sleeves","كم طويل"]:["Short sleeves","كم قصير"],S=WXS[w.src]||WXS.typical;
   return `<span class="wx" title="${L0[0]} ${w.t}°C · ${S[0]}"><span class="wg">${wxIcon(c,night)}<b>${w.t}°</b><span>${L0[0]}</span><span class="ar">${L0[1]}</span></span><span class="wg">${kitIcon(long)}<span>${K[0]}</span><span class="ar">${K[1]}</span></span>${opt&&opt.noSrc?"":`<span class="wn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${S[0][0].toUpperCase()+S[0].slice(1)}</span><span class="ar">${S[1]}</span></span>`}</span>`;}
 const sig=m=>[m.date,m.time||"",m.venue,m.status,m.home,m.away,(m.score||[]).join("|")].join("/");
@@ -2183,7 +2197,7 @@ let NX=null;
      <div class="count" id="count"></div></div>
    <div class="nmeta"><div><div class="k"><span>DATE</span><span class="ar">التاريخ</span></div>${dEn(m)} ${t.getUTCFullYear()}<span class="ar">${dAr(m)}</span></div>
      <div><div class="k"><span>VENUE</span><span class="ar">الملعب</span></div><a class="vlink" href="#stadiums-h" data-venue="${esc(m.venue)}">${esc(vEn(m.venue))}</a><span class="ar">${esc(m.venue)}</span></div>
-     ${m.weather?`<div style="grid-column:span 2"><div class="k"><span>WEATHER AT KICK OFF</span><span class="ar">الطقس وقت المباراة</span></div>${WX(m)}</div>`:""}
+     ${m.weather?`<div style="grid-column:span 2"><div class="k"><span>WEATHER AT KICK OFF</span><span class="ar">الطقس وقت المباراة</span></div>${WXP(m)}</div>`:""}
      <div style="grid-column:span 2;display:flex;justify-content:space-between;gap:10px"><span>${rest!=null?EN(rest,"rest day")+" since the last match":"First match of the season"}</span><span class="ar">${rest!=null?"راحة "+AN(rest,"day")+" منذ آخر مباراة":"أول مباراة في الموسم"}</span></div></div>`;
   tick();setInterval(tick,1000);})();
 function tick(){if(!NX)return;const ms=Math.max(0,kickoff(NX)-new Date());
