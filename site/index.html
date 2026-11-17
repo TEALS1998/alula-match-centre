@@ -1934,7 +1934,7 @@ document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');i
     <article class="card s12"><div class="ch"><div><h3>Away routes from Madinah</h3><small>Every away city this season on one map, then a boarding pass per city, hardest trip first. Times are approximate</small></div><div class="r"><span class="ar">مسارات السفر من المدينة</span><small class="ar">كل مدن السفر على خريطة واحدة، ثم بطاقة صعود لكل مدينة، الأصعب أولاً. الأوقات تقريبية</small></div></div>
       <div id="dest"></div>
       <div class="dlg"><span><i class="dt p"></i>Trip made · <span class="ar">سفرية تمت</span></span><span><i class="dt u"></i>Trip ahead · <span class="ar">سفرية قادمة</span></span><span><i class="dt x"></i>Second half, date not published · <span class="ar">الدور الثاني، لم يُعلن موعدها</span></span><span>Difficulty adds up: no airport in the city, no direct flight from Madinah, long transfer and total time · <span class="ar">الصعوبة = عدم وجود مطار + عدم وجود رحلة مباشرة + طول النقل البري + المدة الكلية</span></span></div></article>
-    <div class="sec" id="stadiums-h"><span class="num">05</span><div><b>Stadiums</b><span class="ar">الملاعب</span></div><small>Every confirmed ground of the season, with a 3D look where references allow<span class="ar">كل ملاعب الموسم المؤكدة، مع عرض ثلاثي الأبعاد حيث تتوفر المراجع</span></small></div>
+    <div class="sec" id="stadiums-h"><span class="num">05</span><div><b>Stadiums</b><span class="ar">الملاعب</span></div><small>Every confirmed stadium of the season, with a 3D look where references allow<span class="ar">كل ملاعب الموسم المؤكدة، مع عرض ثلاثي الأبعاد حيث تتوفر المراجع</span></small></div>
     <div class="grid" id="stadiums"></div>
     <div class="sec" id="second"><span class="num">06</span><div><b>Second half</b><span class="ar">الدور الثاني</span></div><small>Published fixtures and rounds still to be scheduled<span class="ar">المباريات المعلنة والجولات التي لم تُجدول بعد</span></small></div>
     <article class="card s12" id="half2"></article>
@@ -2780,16 +2780,16 @@ const inR1=s=>s.fx.some(m=>halfOf(m)===1);
 const HOMEK=normAr(DATA.homeVenue||"");
 const mkHalf=n=>[...SMAP.values()].filter(s=>s.key!==HOMEK&&(n===1?inR1(s):!inR1(s)))
   .sort((a,b)=>(b.fx.length+b.ex.length)-(a.fx.length+a.ex.length)||((a.fx[0]||{date:"9"}).date<(b.fx[0]||{date:"9"}).date?-1:1));
-const HALVES0=[...(SMAP.has(HOMEK)?[{en:"Our home ground",ar:"ملعبنا",list:[SMAP.get(HOMEK)],home:true}]:[]),{en:"First round grounds",ar:"ملاعب الدور الأول",list:mkHalf(1)},{en:"New grounds in the second round",ar:"ملاعب جديدة في الدور الثاني",list:mkHalf(2)}];
-const HALVES=HALVES0;const halfHtml=h=>`<div class="sthalf${h.home?" sthome":""}"><div class="sthh"><b>${h.en}</b><span class="ar">${h.ar}</span>${h.home?`<small>${EN(h.list[0].fx.length+h.list[0].ex.length,"fixture")} this season · ${AN(h.list[0].fx.length+h.list[0].ex.length,"match")} هذا الموسم</small>`:`<small>${EN(h.list.length,"ground")} · ${AN(h.list.length,"ground")}</small>`}</div>
+const HALVES0=[...(SMAP.has(HOMEK)?[{en:"Our home stadium",ar:"ملعبنا",list:[SMAP.get(HOMEK)],home:true}]:[]),{en:"First round stadiums",ar:"ملاعب الدور الأول",list:mkHalf(1)},{en:"New stadiums in the second round",ar:"ملاعب جديدة في الدور الثاني",list:mkHalf(2)}];
+const HALVES=HALVES0;const halfHtml=h=>`<div class="sthalf${h.home?" sthome":""}"><div class="sthh"><b>${h.en}</b><span class="ar">${h.ar}</span>${h.home?`<small>${EN(h.list[0].fx.length+h.list[0].ex.length,"fixture")} this season · ${AN(h.list[0].fx.length+h.list[0].ex.length,"match")} هذا الموسم</small>`:`<small>${EN(h.list.length,"stadium")} · ${AN(h.list.length,"ground")}</small>`}</div>
   <div class="stg">${h.list.map(CARD).join("")}</div></div>`;
 const GRP=[];HALVES.forEach((h,gi)=>h.list.forEach(s=>GRP.push([s,h.home?"home":gi===(HALVES[0].home?1:0)?"r1":"r2"])));
 const nG=g=>GRP.filter(x=>x[1]===g).length;
-const chips=[["all","All grounds","كل الملاعب",GRP.length],["home","Our home","ملعبنا",nG("home")],["r1","First round","الدور الأول",nG("r1")],["r2","New in second round","جديدة في الدور الثاني",nG("r2")]].filter(c=>c[3]>0);
+const chips=[["all","All stadiums","كل الملاعب",GRP.length],["home","Our home","ملعبنا",nG("home")],["r1","First round","الدور الأول",nG("r1")],["r2","New in second round","جديدة في الدور الثاني",nG("r2")]].filter(c=>c[3]>0);
 const halvesHtml=`<div class="stbar" role="tablist">${chips.map((c,i)=>`<button class="stchip${i?"":" on"}" data-g="${c[0]}" role="tab"><b>${c[1]}</b><span class="ar">${c[2]}</span><i>${c[3]}</i></button>`).join("")}</div>
   <div class="stg stall">${GRP.map(([s,g])=>CARD(s).replace('<button class="stc2','<button data-g="'+g+'" class="stc2')).join("")}</div>`;
 host.innerHTML=feat+`<article class="card s12"><div class="ch"><div><h3>All venues this season</h3><span class="ar" style="font-size:13px;color:var(--navy);font-weight:600">كل ملاعب الموسم</span></div>
-   <small class="hint" style="text-align:end">${LIST.length} grounds · ${LIST.filter(s=>s.facts&&s.facts.model).length} with 3D preview${tbc.length?` · ${tbc.length} fixture${tbc.length>1?"s":""} with venue TBC`:""}<span class="ar" style="display:block">${AN(LIST.length,"ground")} · ${LIST.filter(s=>s.facts&&s.facts.model).length} بعرض ثلاثي الأبعاد</span></small></div>
+   <small class="hint" style="text-align:end">${LIST.length} stadiums · ${LIST.filter(s=>s.facts&&s.facts.model).length} with 3D preview${tbc.length?` · ${tbc.length} fixture${tbc.length>1?"s":""} with venue TBC`:""}<span class="ar" style="display:block">${AN(LIST.length,"ground")} · ${LIST.filter(s=>s.facts&&s.facts.model).length} بعرض ثلاثي الأبعاد</span></small></div>
   ${halvesHtml}
   ${tbc.length?`<div class="sttbc">${svgI("venue")}<span>Venue TBC · ${tbc.map(m=>`${compOf(m)[0]} v ${esc(tEn(oppOf(m)))}${m.venue?" ("+esc(vEn(m.venue))+")":""}`).join(", ")}<span class="ar">الملعب لم يُعلن: ${tbc.map(m=>`${compOf(m)[1]} ضد ${esc(oppOf(m))}${m.venue?" ("+esc(m.venue)+")":""}`).join("، ")}</span></span></div>`:""}
  </article>
@@ -2816,7 +2816,7 @@ function openStadium(k,scroll=true){const s=SMAP.get(k);if(!s)return;
        ${f.note?`${f.note[0]} <span class="ar">${f.note[1]}</span>`:""}${f.note?"":`Built from documented features only: ${f.cap} seats, ${f.track?"running track":"no track"}, ${f.roof==="partial"?"partly covered stands (roof position not from plans)":f.roof==="none"?"uncovered seating":"roof coverage not documented, shown open"}. Stand shape is simplified.
        <span class="ar">مبني من المعلومات الموثقة فقط: السعة، ${f.track?"مضمار الجري":""}، ${f.roof==="partial"?"مدرجات مظللة جزئيًا (مكان المظلة تقريبي)":f.roof==="none"?"مدرجات مكشوفة":"التظليل غير موثق"}. شكل المدرجات مبسّط.</span>`}</div>`
       :`<div class="v3 off"><div>${ICON}<b>3D preview unavailable</b><span class="ar">العرض ثلاثي الأبعاد غير متوفر</span>
-        <small>Not enough published references to model this ground responsibly.<span class="ar">لا توجد مراجع منشورة كافية لبناء نموذج دقيق لهذا الملعب.</span></small></div></div>`}
+        <small>Not enough published references to model this stadium responsibly.<span class="ar">لا توجد مراجع منشورة كافية لبناء نموذج دقيق لهذا الملعب.</span></small></div></div>`}
      ${(()=>{const sf=SURF[s.key]||["u","Not confirmed","غير مؤكدة"],capN=parseInt(String(f.cap||"").replace(/,/g,""))||0,pct=Math.min(100,capN/33000*100);
        const sw=sf[0]==="a"?`<rect width="60" height="40" fill="url(#turf2)"/>`:[0,1,2,3,4,5].map(q=>`<rect x="${q*10}" width="10" height="40" fill="${q%2?"#5c9a48":"#72b25a"}"/>`).join("");
        return `<div class="spec">
@@ -4248,7 +4248,7 @@ function addLoc(){const det=document.getElementById("stdet");if(!det||det.hidden
   const km=v[1]?hav(HOME,[+v[2],+v[1]]):null,home=km!==null&&km<5;
   const div=document.createElement("div");div.className="sloc";
   div.innerHTML=`<div><div class="k">LOCATION<span class="ar">الموقع</span></div><h4>${esc(s.en)}${s.cityEn?", "+esc(s.cityEn):""}<span class="ar">${esc(s.ar)}${s.cityAr?"، "+esc(s.cityAr):""}</span></h4>
-    ${km===null?"":home?`<div class="dist"><b>Home ground</b> · ملعبنا في المدينة المنورة</div>`:`<div class="dist"><b>${km.toLocaleString("en")} km</b> from Madinah · ${km.toLocaleString("en")} كم من المدينة المنورة (خط مستقيم)</div>`}</div>
+    ${km===null?"":home?`<div class="dist"><b>Home stadium</b> · ملعبنا في المدينة المنورة</div>`:`<div class="dist"><b>${km.toLocaleString("en")} km</b> from Madinah · ${km.toLocaleString("en")} كم من المدينة المنورة (خط مستقيم)</div>`}</div>
    <div class="btns"><a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${pin}Open in Google Maps<span class="ar">افتح في خرائط قوقل</span></a><a class="alt" href="https://www.google.com/maps/dir/?api=1&destination=${q}" target="_blank" rel="noopener">Directions<span class="ar">الاتجاهات</span></a></div>`;
   det.appendChild(div);}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(addLoc,60);}).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});setTimeout(addLoc,100);
@@ -4284,7 +4284,7 @@ function stubs(){const L=window.__STADIUMS||[];document.querySelectorAll(".stg>.
   const w=document.createElement("div");w.className="stcw";b.before(w);w.appendChild(b);
   const a=document.createElement("a");a.className="tix";a.href=`https://www.google.com/maps/search/?api=1&query=${q}`;a.target="_blank";a.rel="noopener";a.setAttribute("aria-label",`Open ${s.en} in Google Maps`);
   a.innerHTML=`<span class="tkm"><small>VENUE · مكان المباراة</small><b>${esc(s.cityEn||s.en)}${s.cityAr?` · <span class="ar">${esc(s.cityAr)}</span>`:""}</b>
-    <em>${home?"Home ground · ملعبنا":km!==null?`<span dir="ltr">${km.toLocaleString("en")} km</span> · ${km.toLocaleString("en")} كم من المدينة`:""}</em></span>
+    <em>${home?"Home stadium · ملعبنا":km!==null?`<span dir="ltr">${km.toLocaleString("en")} km</span> · ${km.toLocaleString("en")} كم من المدينة`:""}</em></span>
     <span class="tks">${PIN}MAPS<span class="ar">خرائط</span></span>`;
   w.appendChild(a);});}
 let t;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>{try{stubs();}catch(e){console.error(e);}},60);}).observe(document.querySelector("main")||document.body,{childList:true,subtree:true});setTimeout(stubs,100);
@@ -4894,7 +4894,7 @@ function rMatch(){
         <div><span>Competition · البطولة</span><b>${next.comp==="cup"?"King's Cup":"League, round "+next.round}</b></div>
         <div><span>Date · التاريخ</span><b>${fE(next.date)}</b></div>
         <div><span>Kick off · الموعد</span><b>${next.time||"To be confirmed"}</b></div>
-        <div style="grid-column:span 2"><span>Ground · الملعب</span><b>${venEn(next.venue)}</b><em class="ar">${next.venue}</em></div>
+        <div style="grid-column:span 2"><span>Stadium · الملعب</span><b>${venEn(next.venue)}</b><em class="ar">${next.venue}</em></div>
        </div></div>
      <div class="tks"><div class="tkh">STUB <span class="ar">قسيمة</span></div><div class="tkbig">${next.time||"TBC"}</div><div class="tkd">${fE(next.date)}</div>
        <svg viewBox="0 0 60 14" style="width:100%;height:9mm;margin-top:2mm">${[...Array(30)].map((_,i)=>`<rect x="${i*2}" y="0" width="${[1,.5,1.4,.6,1,.4][i%6]}" height="14" fill="#262c36"/>`).join("")}</svg></div>
@@ -4943,7 +4943,7 @@ function rMatch(){
     <div class="bpr"><div><b>${passFrom.code}</b><span>${passFrom.city}</span><em class="ar">${passFrom.ar}</em></div>
       <svg viewBox="0 0 60 12" style="width:34mm"><line x1="2" y1="6" x2="58" y2="6" stroke="#2e4a72" stroke-width=".8" stroke-dasharray="${mode==="train"?"0":"2 1.5"}"/>${mode==="train"?`<rect x="24" y="2" width="12" height="7" rx="2" fill="#2e4a72"/><circle cx="27" cy="10" r="1" fill="#2e4a72"/><circle cx="33" cy="10" r="1" fill="#2e4a72"/>`:`<path d="M26 6h10M32 6l-3-4M32 6l-3 4M35 6l-1-1.5M35 6l-1 1.5" stroke="#2e4a72" stroke-width="1.2" fill="none"/>`}</svg>
       <div style="text-align:right"><b>${passTo.code}</b><span>${passTo.city}</span><em class="ar">${passTo.ar}</em></div></div>
-    <div class="bpg"><div><span>Mode · الوسيلة</span><b>${mode==="train"?"Train · قطار":"Flight · طيران"}</b></div><div><span>Service · الخدمة</span><b>${dt[0]}</b><em class="ar">${dt[1]}</em></div><div><span>${mode==="train"?"Train time":"Air time"} · مدة الرحلة</span><b>${C?mins(C.air):"?"}</b></div><div><span>${away?"Then by coach · بعدها بالباص":"Airport to ground · من المطار للملعب"}</span><b>${away?(C?mins(C.ground):"?"):(airToGround!=null?"about "+airToGround+" km":"?")}</b></div>
+    <div class="bpg"><div><span>Mode · الوسيلة</span><b>${mode==="train"?"Train · قطار":"Flight · طيران"}</b></div><div><span>Service · الخدمة</span><b>${dt[0]}</b><em class="ar">${dt[1]}</em></div><div><span>${mode==="train"?"Train time":"Air time"} · مدة الرحلة</span><b>${C?mins(C.air):"?"}</b></div><div><span>${away?"Then by coach · بعدها بالباص":"Airport to stadium · من المطار للملعب"}</span><b>${away?(C?mins(C.ground):"?"):(airToGround!=null?"about "+airToGround+" km":"?")}</b></div>
       ${away?`<div><span>Party · البعثة</span><b>${TRAVEL.party?TRAVEL.party.players+" players, "+TRAVEL.party.staff+" staff":"?"}</b></div>`:`<div><span>Distance to Madinah · المسافة</span><b>${oci&&oci.ll?Math.round(hav2(oci.ll,MED.ll)).toLocaleString("en")+" km":"?"}</b></div>`}
       <div><span>Straight line · خط مستقيم</span><b>${away&&kmFromBase?kmFromBase.toLocaleString("en")+" km":"Home · أرضنا"}</b></div></div></div>
     <div class="bps"><span>GATE · البوابة</span><b>${passTo.code}</b><span>DAY · اليوم</span><b>${fE(next.date).split(" ").slice(0,3).join(" ")}</b></div></div>`;
@@ -4951,12 +4951,12 @@ function rMatch(){
   const cityCard=`<div class="cc"><div class="cch"><b>${away?(ci&&ci.en)||city:"Madinah"}</b><span class="ar">${away?city:"المدينة المنورة"}</span><i>${away?(ci&&ci.region?ci.region[0]+" · "+ci.region[1]:""):"Home city · مدينتنا"}</i></div>
     <div class="ccg"><div><span>Airport · المطار</span><b>${away?(ci&&ci.airport?ci.airport[0]:"?"):MED.en+" (MED)"}</b><em class="ar">${away?(ci&&ci.airport?ci.airport[1]:""):MED.ar}</em></div>
     <div><span>Airport in the city · مطار داخل المدينة</span><b>${away?(ci?(ci.inCity?"Yes · نعم":"No, transfer by coach · لا، النقل بالباص"):"?"):"Yes · نعم"}</b></div>
-    <div><span>Airport to ground · من المطار للملعب</span><b>${airToGround!=null?"about "+airToGround+" km in a straight line · قرابة "+airToGround+" كم بخط مستقيم":"?"}</b><em>${away&&ci?"Coach transfer about "+mins(ci.ground)+" · النقل بالباص قرابة "+ci.ground+" دقيقة":""}</em></div>
+    <div><span>Airport to stadium · من المطار للملعب</span><b>${airToGround!=null?"about "+airToGround+" km in a straight line · قرابة "+airToGround+" كم بخط مستقيم":"?"}</b><em>${away&&ci?"Coach transfer about "+mins(ci.ground)+" · النقل بالباص قرابة "+ci.ground+" دقيقة":""}</em></div>
     ${away&&ci&&ci.note?`<div><span>Travel note · ملاحظة السفر</span><b>${ci.note[0]}</b><em class="ar">${ci.note[1]}</em></div>`:""}
     ${away&&route?`<div><span>Hotel area · منطقة السكن</span><b>${route.hotelArea[0]}</b><em class="ar">${route.hotelArea[1]}</em></div><div><span>Training the day before · تدريب اليوم السابق</span><b>${route.pitch[0]}</b><em class="ar">${route.pitch[1]}</em></div>`:""}
     ${!away?`<div><span>Visitors · الفريق الضيف</span><b>${tn(o)} travel from ${(oci&&oci.en)||oppCity||"?"}${oci?", "+directTxt(oci)[0].toLowerCase():""}</b><em class="ar">${o} يسافر من ${oppCity||"؟"}</em></div>`:""}</div></div>`;
-  const tl=away?[["Day before","اليوم السابق",`${mode==="train"?"Train":"Flight"} from Madinah ${C?mins(C.air):"?"}, coach ${C?mins(C.ground):"?"} to the hotel, then training · ${mode==="train"?"قطار":"طيران"} من المدينة ثم باص للفندق ثم تدريب`],["Match day","يوم المباراة",`Coach to the ground about two hours before kick off at ${next.time||"TBC"} · الباص للملعب قبل ضربة البداية بساعتين تقريبا`]]
-    :[["Match day","يوم المباراة","Squad meets at the ground about two hours before kick off · تجمع الفريق في الملعب قبل المباراة بساعتين تقريبا"],["Kick off","ضربة البداية",`${next.time||"TBC"} Saudi time · بتوقيت السعودية`]];
+  const tl=away?[["Day before","اليوم السابق",`${mode==="train"?"Train":"Flight"} from Madinah ${C?mins(C.air):"?"}, coach ${C?mins(C.ground):"?"} to the hotel, then training · ${mode==="train"?"قطار":"طيران"} من المدينة ثم باص للفندق ثم تدريب`],["Match day","يوم المباراة",`Coach to the stadium about two hours before kick off at ${next.time||"TBC"} · الباص للملعب قبل ضربة البداية بساعتين تقريبا`]]
+    :[["Match day","يوم المباراة","Squad meets at the stadium about two hours before kick off · تجمع الفريق في الملعب قبل المباراة بساعتين تقريبا"],["Kick off","ضربة البداية",`${next.time||"TBC"} Saudi time · بتوقيت السعودية`]];
   const timeline=`<div class="tl">${tl.map(([e,a,d])=>`<div><i></i><b>${e}</b><span class="ar">${a}</span><p>${d}</p></div>`).join("")}</div>`;
   const t3=three(next.venue,520,600,.4);
   const ground=`<div class="gd${t3?" g3d":""}">${t3?`<div class="g3w"><img src="${t3.src}" alt=""><span class="g3b">3D</span></div>`:pitchTop(f)}<div class="gdi"><b>${venEn(next.venue)}</b><span class="ar">${next.venue}</span>
@@ -4966,7 +4966,7 @@ function rMatch(){
   const p3=`<section class="rps rpj fix">${head(`${round[0]} · ${round[1]}`,away?"The journey":"Matchday at home","الرحلة والملعب",`<span>${away?"Away trip to "+((ci&&ci.en)||city):"Home fixture in Madinah"} · ${away?"رحلة إلى "+city:"مباراة على أرضنا في المدينة المنورة"}</span>`)}<div class="rpB">
      ${T("01",away?"Boarding pass":"The visitors' trip to us","بطاقة السفر")}${pass}
      <div class="rp2"><div>${T("02","Route","المسار")}${map}<div class="rpnote">Schematic map, straight line distances. · خريطة توضيحية والمسافات بخط مستقيم.</div></div><div>${T("03","The city","المدينة")}${cityCard}</div></div>
-     <div class="rp2"><div>${T("04","The ground","الملعب")}${ground}</div><div>${T("05","Kick off weather and plan","الطقس وخطة يوم المباراة")}${wxBox}<div style="height:3mm"></div>${timeline}<div class="rpnote">Suggested outline from the logistics plan. · مخطط مقترح من خطة اللوجستيات.</div></div></div>
+     <div class="rp2"><div>${T("04","The stadium","الملعب")}${ground}</div><div>${T("05","Kick off weather and plan","الطقس وخطة يوم المباراة")}${wxBox}<div style="height:3mm"></div>${timeline}<div class="rpnote">Suggested outline from the logistics plan. · مخطط مقترح من خطة اللوجستيات.</div></div></div>
   </div>${ft}</section>`;
   return p1+p2+p3;
 }
@@ -5036,10 +5036,10 @@ function rGrounds(){
   const longest=away[away.length-1],nearest=away[0];
   const surfN=k=>L.filter(g=>g.f.surface===k).length;
   const res3=g=>g.fx.filter(m=>m.status==="played"&&m.score);
-  const p1=`<section class="rps fix">${head("Ground guide · دليل الملاعب","Away days atlas","أطلس الملاعب والرحلات",`<span>${L.length} grounds this season · ${L.length} ملعب هذا الموسم</span><span>Season ${SKEY} · الموسم</span>`)}<div class="rpB">
+  const p1=`<section class="rps fix">${head("Stadium guide · دليل الملاعب","Away days atlas","أطلس الملاعب والرحلات",`<span>${L.length} stadiums this season · ${L.length} ملعب هذا الموسم</span><span>Season ${SKEY} · الموسم</span>`)}<div class="rpB">
     ${T("01","The map of the season","خريطة الموسم")}${M.svg(arcs+pins)}
     <div class="rpnote">Gold pin is home. Pin size follows capacity. Solid gold arcs are trips already made, dashed white arcs are still to come. · الدبوس الذهبي ملعبنا، وحجم الدبوس حسب السعة، والأقواس الذهبية رحلات تمت والبيضاء المتقطعة رحلات قادمة.</div>
-    <div class="rpk"><div><b>${L.length}</b><span>Grounds · ملاعب</span></div><div><b>${totalKm.toLocaleString("en")}</b><span>km in round trips, straight line · كم ذهابا وعودة</span></div><div><b>${longest?longest.km.toLocaleString("en"):"?"}</b><span>Longest trip, ${longest?(longest.ci?longest.ci.en:cityOf(longest.v)):""} · أبعد رحلة</span></div><div><b>${nearest?nearest.km.toLocaleString("en"):"?"}</b><span>Nearest away ground · أقرب ملعب خارج أرضنا</span></div></div>
+    <div class="rpk"><div><b>${L.length}</b><span>Stadiums · ملاعب</span></div><div><b>${totalKm.toLocaleString("en")}</b><span>km in round trips, straight line · كم ذهابا وعودة</span></div><div><b>${longest?longest.km.toLocaleString("en"):"?"}</b><span>Longest trip, ${longest?(longest.ci?longest.ci.en:cityOf(longest.v)):""} · أبعد رحلة</span></div><div><b>${nearest?nearest.km.toLocaleString("en"):"?"}</b><span>Nearest away stadium · أقرب ملعب خارج أرضنا</span></div></div>
     ${T("02","Surfaces and stands","الأرضيات والمدرجات")}
     <div class="srf">${[["n","Natural grass","عشب طبيعي","#2f6b45"],["a","Artificial turf","عشب صناعي","#3f8a57"],["h","Hybrid grass","عشب هجين","#4b7a5a"]].map(([k,e,a,c])=>`<div><i style="background:${c}"></i><b>${surfN(k)}</b><span>${e} · ${a}</span></div>`).join("")}<div><i style="background:#b5523b"></i><b>${L.filter(g=>g.f.track).length}</b><span>With running track · بمضمار</span></div><div><i style="background:#f2d98a"></i><b>${L.filter(g=>g.f.roof==="partial"||g.f.roof==="full").length}</b><span>With covered stands · بمظلات</span></div></div>
     ${T("03","Travel ladder, nearest to farthest","سلم الرحلات من الأقرب للأبعد")}
@@ -5053,14 +5053,14 @@ function rGrounds(){
     <div class="gkf">${f.surface&&SURF[f.surface]?`<span>${SURF[f.surface][0]}</span>`:""}${f.roof&&ROOF[f.roof]?`<span>${ROOF[f.roof][0]}</span>`:""}${f.track!=null?`<span>${f.track?"Track":"No track"}</span>`:""}</div>
     <div class="gkr">${g.fx.map(m=>m.status==="played"&&m.score?`<span class="rpw ${res(m)}">${res(m)}</span>`:`<span class="rpw U">·</span>`).join("")}<em>${g.fx.map(m=>tn(opp(m))).filter((x,i,a)=>a.indexOf(x)===i).join(", ")}</em></div></div>`;};
   const pages=[];for(let i=0;i<L.length;i+=9)pages.push(L.slice(i,i+9));
-  const p2=pages.map((pg,n)=>`<section class="rps fix">${head("Ground guide · دليل الملاعب","Ground cards","بطاقات الملاعب",`<span>Collect the set · مجموعة الملاعب ${n+1} / ${pages.length}</span>`)}<div class="rpB"><div class="gkg">${pg.map(card).join("")}</div>
-    <div class="rpnote">Cards marked 3D show the stadium 3D model from the dashboard, built from photos of the ground; the others use a schematic drawing (red edge running track, gold covered stands). Dots are AlUla results at the ground, grey for games still to play. · البطاقات المعلّمة 3D تعرض المجسم ثلاثي الأبعاد من اللوحة المبني من صور الملعب، والباقي رسمة توضيحية. الدوائر نتائج العلا في الملعب.</div></div>${FT()}</section>`).join("");
+  const p2=pages.map((pg,n)=>`<section class="rps fix">${head("Stadium guide · دليل الملاعب","Stadium cards","بطاقات الملاعب",`<span>Collect the set · مجموعة الملاعب ${n+1} / ${pages.length}</span>`)}<div class="rpB"><div class="gkg">${pg.map(card).join("")}</div>
+    <div class="rpnote">Cards marked 3D show the stadium 3D model from the dashboard, built from photos of the stadium; the others use a schematic drawing (red edge running track, gold covered stands). Dots are AlUla results at the stadium, grey for games still to play. · البطاقات المعلّمة 3D تعرض المجسم ثلاثي الأبعاد من اللوحة المبني من صور الملعب، والباقي رسمة توضيحية. الدوائر نتائج العلا في الملعب.</div></div>${FT()}</section>`).join("");
   return p1+p2;
 }
 
 /* ---------- 3. Changes: the fourth official's season ---------- */
 function rChanges(){
-  const F={date:["Date","التاريخ"],time:["Kick off","الموعد"],venue:["Ground","الملعب"],status:["Status","الحالة"],home:["Host","المستضيف"]};
+  const F={date:["Date","التاريخ"],time:["Kick off","الموعد"],venue:["Stadium","الملعب"],status:["Status","الحالة"],home:["Host","المستضيف"]};
   const L=MATCHES.filter(m=>(m.changes||[]).length).sort((a,b)=>a.date<b.date?-1:1);
   const all=L.flatMap(m=>m.changes.map(c=>({m,c})));
   const by=k=>all.filter(x=>x.c.field===k).length;
@@ -5084,7 +5084,7 @@ function rChanges(){
     return `<div class="sb2"><div class="sb2h"><b>${tn(m.home)} v ${tn(m.away)}</b><span>${fl[0]} · ${fl[1]}</span></div><div class="sb2b"><div class="off"><i></i><span class="x">${fr[0]||""}</span><span class="ar">${fr[1]||""}</span></div><div class="on"><i></i><span class="x">${to[0]||""}</span><span class="ar">${to[1]||""}</span></div></div></div>`;}).join("");
   const p1=`<section class="rps fix">${head("Fourth official · الحكم الرابع","The season's substitutions","تبديلات الموسم",`<span>Every change to AlUla's fixtures · كل تعديل على مباريات العلا</span>`)}<div class="rpB">
     <div class="lbdw"><div class="lbd"><div class="lbdh"><span>CHANGES · تعديلات</span><span>${SKEY}</span></div><svg viewBox="-3 -3 ${led.w+6} 34" style="height:30mm;display:block;margin:0 auto">${led.svg}</svg><div class="lbdf"><span class="r">▼ OFF</span><span class="g">▲ ON</span></div></div>
-     <div class="lbdk"><div><b>${L.length}</b><span>Fixtures changed · مباريات تعدلت</span></div><div><b>${moved}</b><span>Days moved in total · مجموع أيام التأجيل</span></div><div><b>${most?most.changes.length:0}</b><span>Most changes on one fixture: ${most?tn(most.home)+" v "+tn(most.away):""} · أكثر مباراة تعدلت</span></div><div><b>${by("venue")}</b><span>Ground changes · تغيير الملعب</span></div></div></div>
+     <div class="lbdk"><div><b>${L.length}</b><span>Fixtures changed · مباريات تعدلت</span></div><div><b>${moved}</b><span>Days moved in total · مجموع أيام التأجيل</span></div><div><b>${most?most.changes.length:0}</b><span>Most changes on one fixture: ${most?tn(most.home)+" v "+tn(most.away):""} · أكثر مباراة تعدلت</span></div><div><b>${by("venue")}</b><span>Stadium changes · تغيير الملعب</span></div></div></div>
     ${T("01","Season ribbon","شريط الموسم")}${ribbon}
     ${T("02","Changes by type","التعديلات حسب النوع")}${stack}
     ${T("03","Biggest moves","أكبر التأجيلات")}<table class="rptab"><tr><th style="text-align:left">Fixture · المباراة</th><th>First date · الموعد الأول</th><th>Now · الآن</th><th>Days · أيام</th></tr>${movedL.sort((a,b)=>Math.abs(b.d)-Math.abs(a.d)).slice(0,6).map(({m,d})=>`<tr><td class="l">${img(m.home)}${tn(m.home)} v ${tn(m.away)}</td><td>${fE(m.orig)}</td><td>${fE(m.date)}</td><td><b>${d>0?"+":""}${d}</b></td></tr>`).join("")}</table>
@@ -5135,8 +5135,8 @@ function rTable(){
 }
 
 const R=[
- {k:"match",f:rMatch,en:"Next match",a:"تقرير المباراة القادمة",d:"Matchday programme: cover and ticket, tactics board, model prediction, boarding pass, city and ground · برنامج المباراة",ic:`<svg viewBox="0 0 120 60"><rect x="8" y="6" width="104" height="48" rx="3" fill="none" stroke="#fff" stroke-width="2"/><line x1="60" y1="6" x2="60" y2="54" stroke="#fff" stroke-width="2"/><circle cx="60" cy="30" r="9" fill="none" stroke="#fff" stroke-width="2"/><circle cx="34" cy="30" r="8" fill="#c9b48a"/><circle cx="86" cy="30" r="8" fill="#fff" opacity=".7"/></svg>`},
- {k:"grounds",f:rGrounds,en:"Stadiums",a:"تقرير الملاعب",d:"Away days atlas with the season map, and a collectable card for every ground · أطلس الملاعب وبطاقة لكل ملعب",ic:`<svg viewBox="0 0 120 60"><rect x="30" y="6" width="60" height="48" rx="10" fill="#b5523b"/><rect x="38" y="12" width="44" height="36" fill="#2f6b45"/><rect x="24" y="14" width="5" height="32" fill="#f2d98a"/><rect x="91" y="14" width="5" height="32" fill="#f2d98a"/><line x1="38" y1="30" x2="82" y2="30" stroke="#fff"/></svg>`},
+ {k:"match",f:rMatch,en:"Next match",a:"تقرير المباراة القادمة",d:"Matchday programme: cover and ticket, tactics board, model prediction, boarding pass, city and stadium · برنامج المباراة",ic:`<svg viewBox="0 0 120 60"><rect x="8" y="6" width="104" height="48" rx="3" fill="none" stroke="#fff" stroke-width="2"/><line x1="60" y1="6" x2="60" y2="54" stroke="#fff" stroke-width="2"/><circle cx="60" cy="30" r="9" fill="none" stroke="#fff" stroke-width="2"/><circle cx="34" cy="30" r="8" fill="#c9b48a"/><circle cx="86" cy="30" r="8" fill="#fff" opacity=".7"/></svg>`},
+ {k:"grounds",f:rGrounds,en:"Stadiums",a:"تقرير الملاعب",d:"Away days atlas with the season map, and a collectable card for every stadium · أطلس الملاعب وبطاقة لكل ملعب",ic:`<svg viewBox="0 0 120 60"><rect x="30" y="6" width="60" height="48" rx="10" fill="#b5523b"/><rect x="38" y="12" width="44" height="36" fill="#2f6b45"/><rect x="24" y="14" width="5" height="32" fill="#f2d98a"/><rect x="91" y="14" width="5" height="32" fill="#f2d98a"/><line x1="38" y1="30" x2="82" y2="30" stroke="#fff"/></svg>`},
  {k:"changes",f:rChanges,en:"Changes",a:"تقرير التغييرات",d:"The fourth official's season: LED board, season ribbon, biggest moves and every substitution board · موسم الحكم الرابع",ic:`<svg viewBox="0 0 120 60"><rect x="18" y="10" width="40" height="40" rx="4" fill="#1d2533" stroke="#ff8a80" stroke-width="2"/><rect x="62" y="10" width="40" height="40" rx="4" fill="#1d2533" stroke="#8ee6a8" stroke-width="2"/><path d="M38 22 32 32h12z" fill="#ff8a80" transform="rotate(180 38 27)"/><path d="M82 22 76 32h12z" fill="#8ee6a8"/></svg>`},
  {k:"table",f:rTable,en:"League table",a:"إحصائيات جدول الترتيب",d:"The terrace of points, the full table, the promotion race at current pace and attack against defence · المدرج وسباق الصعود",ic:`<svg viewBox="0 0 120 60">${[0,1,2,3,4].map(i=>`<rect x="20" y="${8+i*9}" width="${80-i*12}" height="6" rx="2" fill="${i<2?"#5fa37c":i<4?"#d2a941":"#fff"}" opacity="${i<2?1:.85}"/>`).join("")}</svg>`}
 ];

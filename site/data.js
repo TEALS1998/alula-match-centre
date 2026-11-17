@@ -733,7 +733,7 @@ window.ALULA_DATA = {
    ],
    "totalRounds": 34,
    "expectedNote": [
-    "Second round fixtures not yet published by SAFF; venue is each host's home ground this season",
+    "Second round fixtures not yet published by SAFF; venue is each host's home stadium this season",
     "مباريات الدور الثاني لم ينشرها الاتحاد بعد، والملعب هو ملعب الفريق المستضيف هذا الموسم"
    ],
    "expected": [
@@ -751,7 +751,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "ملعب نادي الرائد (بريدة)",
      "basis": [
-      "Al Saqer's home ground this season (SAFF, 7 Nov 2026)",
+      "Al Saqer's home stadium this season (SAFF, 7 Nov 2026)",
       "ملعب الصقر هذا الموسم (الاتحاد السعودي، 7 نوفمبر 2026)"
      ]
     },
@@ -760,7 +760,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "ملعب نادي جدة (جدة)",
      "basis": [
-      "Jeddah's home ground on SAFF fixtures this season",
+      "Jeddah's home stadium on SAFF fixtures this season",
       "ملعب جدة في جدول الاتحاد السعودي هذا الموسم"
      ]
     },
@@ -769,7 +769,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "ملعب نادي العروبة (الجوف)",
      "basis": [
-      "Al Orubah's home ground on the league's 2026/27 schedule (FDL)",
+      "Al Orubah's home stadium on the league's 2026/27 schedule (FDL)",
       "ملعب العروبة في جدول رابطة دوري الأولى 2026/27"
      ]
     },
@@ -778,7 +778,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "ملعب مدينة الأمير عبدالله بن جلوي الرياضية (الأحساء)",
      "basis": [
-      "Al Adalah's usual home ground this season (SAFF), some games moved to Hajer Club Stadium",
+      "Al Adalah's usual home stadium this season (SAFF), some games moved to Hajer Club Stadium",
       "ملعب العدالة المعتاد هذا الموسم، وبعض مبارياته نُقلت لملعب نادي هجر"
      ]
     },
@@ -787,7 +787,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "ملعب مدينة الأمير عبدالله بن جلوي الرياضية (الأحساء)",
      "basis": [
-      "Al Jeel's home ground (club and press reports)",
+      "Al Jeel's home stadium (club and press reports)",
       "ملعب الجيل (النادي والصحف)"
      ]
     },
@@ -796,7 +796,7 @@ window.ALULA_DATA = {
      "home": false,
      "venue": "استاد الأمير عبدالعزيز بن مساعد بن جلوي (حائل)",
      "basis": [
-      "Al Taee's home ground this season (SAFF)",
+      "Al Taee's home stadium this season (SAFF)",
       "ملعب الطائي هذا الموسم (الاتحاد السعودي)"
      ]
     },
@@ -805,7 +805,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -814,7 +814,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -823,7 +823,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -832,7 +832,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -841,7 +841,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -850,7 +850,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -859,7 +859,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     },
@@ -868,7 +868,7 @@ window.ALULA_DATA = {
      "home": true,
      "venue": "استاد الأمير محمد بن عبدالعزيز (المدينة المنورة)",
      "basis": [
-      "Our home ground",
+      "Our home stadium",
       "ملعبنا"
      ]
     }
