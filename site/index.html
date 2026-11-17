@@ -2445,7 +2445,7 @@ function table(){const f=FS.find(x=>x[0]===F)[3],items=MATCHES.filter(f).sort((x
       <div class="mrd${isNew?" dot":""}"><b>${m.comp==="cup"?"Cup":"R"+m.round}</b><span class="ar">${m.comp==="cup"?"الكأس":"الجولة "+m.round}</span></div>
       <div class="mdt${d("date")}${d("time")}"><b${pp?' class="was"':""}>${dEn(m)} · ${m.time||"TBC"}</b><span class="ar">${dAr(m)}${m.time?" · "+m.time:""}</span></div>
       ${team(m.home,"r")}${sc}${team(m.away,"l")}
-      <div class="mw${d("venue")}" title="${esc(m.venue?vEn(m.venue)+" · "+m.venue:"")}"><b>${conf?`<a class="vlink" href="#stadiums-h" data-venue="${esc(m.venue)}">${where[0]}</a>`:where[0]}</b><span class="ar">${where[1]}</span>${rest!=null&&!pp?`<small class="${rest<=4?"tight":""}">${EN(rest,"rest day")} · راحة ${AN(rest,"day")}</small>`:""}${pp?"":WX(m,{noSrc:true})}</div>
+      <div class="mw${d("venue")}" title="${esc(m.venue?vEn(m.venue)+" · "+m.venue:"")}"><b>${conf?`<a class="vlink" href="#stadiums-h" data-venue="${esc(m.venue)}">${where[0]}</a>`:where[0]}</b><span class="ar">${where[1]}</span>${rest!=null&&!pp?`<small class="${rest<=4?"tight":""}"><span class="rE">${EN(rest,"rest day")}</span><span class="rS"> · </span><span class="rA" dir="rtl">راحة ${AN(rest,"day")}</span></small>`:""}${pp?"":WX(m,{noSrc:true})}</div>
     </div>`;});
   document.getElementById("tbl").innerHTML=h;}
 tabs();table();
@@ -5233,5 +5233,63 @@ addEventListener("beforeprint",()=>document.querySelectorAll(".mo-r,.rps").forEa
 })();
 </script>
 
+<style id="phonefit">
+/* ===== phone layout (≤600px): every section sized for a phone screen ===== */
+@media (max-width:600px){
+  /* key figures: tidy two by two grid instead of a sideways strip */
+  .kpis{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;overflow:visible!important;scroll-snap-type:none!important;padding-left:12px!important;padding-right:12px!important;margin-left:0!important;margin-right:0!important}
+  .kpis>.kpi{width:auto!important;min-width:0!important;max-width:none!important;flex:none!important;padding:12px 12px 12px 14px!important}
+  .kpis .kpi .l{flex-direction:column!important;align-items:flex-start!important;gap:4px!important}
+  .kpis .kpi .l .ar{align-self:flex-end}
+  .kpis .kpi .v{font-size:30px!important}
+  .kpis .kpi .s{flex-direction:column!important;gap:2px!important;font-size:10.5px!important}
+  .kpis .kpi .s .ar{text-align:right!important}
+  .kpis .wdl span{font-size:20px!important}
+  .kpis .gfga b{font-size:24px!important}
+
+  /* card headings: English line, then Arabic line, both at a calm size */
+  .card>.ch{flex-direction:column!important;align-items:stretch!important;gap:6px!important}
+  .card>.ch>.r{text-align:right!important;align-items:flex-end!important}
+  .card>.ch>.r>.ar:not(small){font-size:15px!important;line-height:1.35!important}
+  .card>.ch small,.card>.ch small.ar{font-size:11px!important;line-height:1.5!important;max-width:none!important}
+  .card>.ch .tabs{margin-top:4px}
+
+  /* all matches: one clean card per match */
+  #tbl .mr:not(.mh){display:grid!important;grid-template-columns:1fr 92px 1fr!important;grid-template-areas:"r dt dt" "h s a" "w w w"!important;gap:12px 8px!important;padding:12px 12px 10px!important;height:auto!important;min-height:0!important;margin-bottom:12px!important;border-radius:14px!important}
+  #tbl .mr .mrd{grid-area:r;justify-self:start;width:58px;height:40px}
+  #tbl .mr .mdt{grid-area:dt;justify-self:end;text-align:right}
+  #tbl .mr .mdt b,#tbl .mr .mdt .ar{text-align:right!important;white-space:nowrap}
+  #tbl .mr .mt{flex-direction:column!important;align-items:center!important;text-align:center!important;gap:5px!important}
+  #tbl .mr .mt.r{grid-area:h}#tbl .mr .mt.l{grid-area:a}
+  #tbl .mr .mt b,#tbl .mr .mt .ar{text-align:center!important;white-space:normal!important;overflow:visible!important}
+  #tbl .mr .mt .lg,#tbl .mr .mt .mono2{width:34px!important;height:34px!important}
+  #tbl .mr .ms{grid-area:s}
+  #tbl .mr .pill{min-width:78px}
+  #tbl .mr .mw{grid-area:w;display:grid!important;grid-template-columns:1fr auto;column-gap:10px;row-gap:3px;align-items:center;text-align:left!important;padding:10px 0 0!important;border-top:1px dashed var(--line);min-width:0}
+  #tbl .mr .mw>b{grid-column:1;grid-row:1;white-space:normal!important}
+  #tbl .mr .mw>.ar{grid-column:1;grid-row:2;text-align:left!important;white-space:normal!important}
+  #tbl .mr .mw>small{grid-column:2;grid-row:1/3;margin:0;background:var(--chip,#efebe5);border-radius:8px;padding:5px 9px;text-align:center;line-height:1.35;max-width:118px;white-space:normal}
+  #tbl .mr .mw>.wx{grid-column:1/-1;grid-row:3;display:flex!important;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;margin-top:6px;white-space:normal!important;overflow:visible!important}
+  #tbl .mr .mw>.wx .wg{white-space:nowrap}
+  #tbl .mr .mw.dot::after{top:12px!important;right:2px!important}
+  #tbl .mr.nx::before{left:12px}
+
+  #tbl .mr .mw>small .rE,#tbl .mr .mw>small .rA{display:block}
+  #tbl .mr .mw>small .rS{display:none}
+  .card>.ch .tabs{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;overflow:visible!important}
+  .card>.ch .tabs .tab{min-width:0!important;width:auto!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:1px!important;padding:6px 4px!important;text-align:center;font-size:11.5px!important;line-height:1.2;position:relative;white-space:normal!important}
+  .card>.ch .tabs .tab em{position:absolute;top:-6px;right:-4px;font-size:9.5px!important;min-width:18px;padding:1px 5px;border-radius:9px;background:var(--navy);color:#fff;font-style:normal}
+  html body .card>.ch>.r>small.ar,html body .card>.ch>.r small{font-size:11.5px!important;font-weight:500!important;color:var(--muted)!important;line-height:1.55!important}
+
+  /* stadium cards: venue stub stacked so nothing is cut */
+  .stall .tix{flex-direction:column!important;align-items:stretch!important}
+  .stall .tix .tkm{min-width:0;padding-bottom:6px}
+  .stall .tix .tkm b{white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+  .stall .tix .tkm em{white-space:normal!important}
+  .stall .tix .tks{flex-direction:row!important;justify-content:center!important;gap:6px!important;width:auto!important;min-height:0!important;padding:7px 8px!important;border-radius:0 0 12px 12px}
+  .stall .tix .tks svg{width:14px;height:14px;margin:0}
+  .stall .scn{white-space:normal!important}
+}
+</style>
 </body>
 </html>

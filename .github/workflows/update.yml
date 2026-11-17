@@ -9,6 +9,10 @@ on:
         description: "Keep the raw SAFF pages for checking"
         required: false
         default: "no"
+      test_notify:
+        description: "Send a test notification to the phone (yes/no)"
+        required: false
+        default: "no"
   push:
     branches: [main]
     paths: ["site/**", "scripts/**", ".github/workflows/**"]
@@ -50,6 +54,7 @@ jobs:
           if git diff --quiet -- site/data.js; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
+            git show HEAD:site/data.js > "$RUNNER_TEMP/before.js" || true
             git config user.name "alula-live-update"
             git config user.email "actions@users.noreply.github.com"
             git add site/data.js last-run.json
@@ -57,6 +62,16 @@ jobs:
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      - name: Phone notification when a fixture changes
+        if: steps.commit.outputs.changed == 'true'
+        run: node scripts/notify.mjs "$RUNNER_TEMP/before.js" site/data.js
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC || 'alula-mc-zkyj9vb8oi' }}
+      - name: Test notification
+        if: github.event.inputs.test_notify == 'yes'
+        run: node scripts/notify.mjs --test
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC || 'alula-mc-zkyj9vb8oi' }}
 
   deploy:
     needs: update
