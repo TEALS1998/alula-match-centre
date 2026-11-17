@@ -1167,8 +1167,9 @@ svg path.pl{fill:currentColor;stroke:none}
 .wx .wi{width:20px;height:20px;flex:none}.wx .wk{width:22px;height:22px;flex:none}.wx b{font-size:13px}.wx .ar{font-weight:600}
 .wx .ar{display:inline!important;font-size:inherit!important;color:inherit!important}.mr .wx b{font-size:12.5px}.mr{height:auto!important;min-height:62px;padding-top:8px!important;padding-bottom:8px!important}
 .wx .wg{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-.wx .wn{font-weight:600;font-size:10px;letter-spacing:.03em;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);opacity:.92;margin-inline-start:auto}
-.wx{width:100%;row-gap:6px}.mw .wx{margin-top:4px}.sfx .wx{grid-column:1/-1;margin-top:2px}
+.wx .wn{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-weight:700;font-size:inherit;opacity:1}
+.wx .wn svg{width:18px;height:18px;flex:none;opacity:.85}
+.wx{column-gap:18px!important;row-gap:6px}.mw .wx{margin-top:4px}.sfx .wx{grid-column:1/-1;margin-top:2px}
 .v3k .wx{color:#fff}.v3k .wx .wn{opacity:.8}
 .v3x{display:grid;grid-template-columns:1.25fr 1.2fr 1fr 1fr;margin-top:8px;background:linear-gradient(120deg,#13213f 0%,#1d2f57 60%,#2a3550 100%);border:1px solid rgba(200,167,126,.5);border-radius:14px;color:#fff;box-shadow:0 6px 18px rgba(19,33,63,.22);overflow:hidden;position:relative;animation:v3xIn .6s ease-out}
 .v3x::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 140% at 0% 0%,rgba(200,167,126,.18),transparent 55%);pointer-events:none}
@@ -2069,7 +2070,7 @@ function kitIcon(long,light){const body=`M9 3 5 5 3 7v0l2.5 4L7 10.5V21h10V10.5l
   const arms=long?`<path d="M5 5 1.6 7.4 2.6 19l2.6-.2.8-8.3M19 5l3.4 2.4-1 11.6-2.6-.2-.8-8.3" fill="${light?"#c8a77e":"#7a5233"}"/>`:"";
   return `<svg class="wk" viewBox="0 0 24 24" aria-hidden="true">${arms}<path d="${body}" fill="${light?"#f5efe6":"#1d2b4c"}" stroke="#c8a77e" stroke-width=".8"/><path d="M9 3c.6 1.6 1.7 2.4 3 2.4S14.4 4.6 15 3" fill="none" stroke="#c8a77e" stroke-width="1"/></svg>`;}
 function WX(m,opt){const w=m&&m.weather;if(!w||w.t==null)return "";const night=wxNight(m),c=w.c||"sun",L0=c==="sun"&&night?WXL.clear:c==="clear"&&!night?WXL.sun:(WXL[c]||WXL.sun),long=w.t<=20,K=long?["Long sleeves","كم طويل"]:["Short sleeves","كم قصير"],S=WXS[w.src]||WXS.typical;
-  return `<span class="wx" title="${L0[0]} ${w.t}°C · ${S[0]}"><span class="wg">${wxIcon(c,night)}<b>${w.t}°</b><span>${L0[0]}</span><span class="ar">${L0[1]}</span></span><span class="wg">${kitIcon(long)}<span>${K[0]}</span><span class="ar">${K[1]}</span></span>${opt&&opt.noSrc?"":`<span class="wn">${S[0]}<span style="opacity:.5">·</span><span class="ar">${S[1]}</span></span>`}</span>`;}
+  return `<span class="wx" title="${L0[0]} ${w.t}°C · ${S[0]}"><span class="wg">${wxIcon(c,night)}<b>${w.t}°</b><span>${L0[0]}</span><span class="ar">${L0[1]}</span></span><span class="wg">${kitIcon(long)}<span>${K[0]}</span><span class="ar">${K[1]}</span></span>${opt&&opt.noSrc?"":`<span class="wn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${S[0][0].toUpperCase()+S[0].slice(1)}</span><span class="ar">${S[1]}</span></span>`}</span>`;}
 const sig=m=>[m.date,m.time||"",m.venue,m.status,m.home,m.away,(m.score||[]).join("|")].join("/");
 let fresh=new Set(),firstVisit=false;
 try{const prev=JSON.parse(localStorage.getItem("alula-fixtures-v4-"+SKEY)||"null");if(prev)MATCHES.forEach(m=>{if(prev[m.id]!==sig(m))fresh.add(m.id);});else firstVisit=true;
