@@ -3,7 +3,12 @@ name: Live update from SAFF
 on:
   schedule:
     - cron: "3,13,23,33,43,53 * * * *"   # every 10 minutes, off the busy :00 mark (GitHub may still delay scheduled runs)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      diag:
+        description: "Keep the raw SAFF pages for checking"
+        required: false
+        default: "no"
   push:
     branches: [main]
     paths: ["site/**", "scripts/**", ".github/workflows/**"]
@@ -30,9 +35,9 @@ jobs:
       - name: Read SAFF and update data.js
         run: node scripts/update.mjs
         env:
-          SAFF_DIAG: ${{ github.event_name != 'schedule' && '1' || '' }}
+          SAFF_DIAG: ${{ (github.event_name == 'push' || github.event.inputs.diag == 'yes') && '1' || '' }}
       - name: Keep the raw SAFF pages for checking
-        if: always()
+        if: always() && (github.event_name == 'push' || github.event.inputs.diag == 'yes')
         uses: actions/upload-artifact@v4
         with:
           name: saff-raw
@@ -55,7 +60,7 @@ jobs:
 
   deploy:
     needs: update
-    if: needs.update.outputs.changed == 'true' || github.event_name != 'schedule'
+    if: needs.update.outputs.changed == 'true' || github.event_name == 'push'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
