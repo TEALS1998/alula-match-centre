@@ -4,7 +4,7 @@
 /* weather per match: t = °C at kick off, c = sun|clear|partly|cloud|rain|storm|dust|fog,
    src = typical (usual for that city, month and hour) | forecast (within 10 days) | observed (after the match). */
 window.ALULA_DATA = {
- "lastChecked": "2026-11-18",
+ "lastChecked": "2026-11-19",
  "source": "https://www.saff.com.sa/team.php?id=121",
  "current": "2026/27",
  "teams": {
