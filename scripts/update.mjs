@@ -168,8 +168,20 @@ async function main() {
     fs.writeFileSync(path.join(RAW, "team.html"), html); diag("team", html);
     const ms = parseMatches(html, teamOf).filter((m) => firstTeam(m.section));
     if (ms.length) ok++;
-    for (const m of ms) applyMatch(S, m, changes, false);
+    const seen = new Set();
+    for (const m of ms) { const x = applyMatch(S, m, changes, false); if (x) seen.add(x.id); }
     log("first team fixtures found:", ms.length);
+    // A future league match that SAFF no longer lists, while SAFF does list league matches after it,
+    // has been taken off the schedule: show it as postponed instead of keeping a date SAFF does not publish.
+    const today0 = new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10);
+    const lastListed = ms.filter((m) => !m.section.includes("كأس")).map((m) => m.date).sort().pop();
+    if (lastListed) for (const x of S.matches) {
+      if (x.comp !== "league" || x.status !== "upcoming" || seen.has(x.id) || x.date < today0 || x.date >= lastListed) continue;
+      x.status = "postponed"; if (!x.orig) x.orig = x.date;
+      (x.changes ||= []).push({ field: "date", from: label(x.date), to: ["Not set", "لم يُحدد"] },
+        { field: "status", from: label(x.date, x.time), to: ["Postponed · new date not set", "مؤجلة · لم يُحدد الموعد الجديد"] });
+      changes.push(`postponed ${x.home} v ${x.away} (was ${x.date}, no longer on SAFF)`);
+    }
     if (process.env.SAFF_DIAG) for (const m of ms) log("fx", m.date, m.time, m.home, m.scoreText || "v", m.away, "|", m.section, "|", m.venue);
   } catch (e) { log("team page failed:", e.message); }
 
@@ -203,9 +215,15 @@ function applyMatch(S, m, changes, fromLeaguePage) {
   if (score && x.status !== "played" && m.date <= today) {
     x.status = "played"; x.score = score;
     changes.push(`result ${x.home} ${score[0]} v ${score[1]} ${x.away}`);
-    return;
+    return x;
   }
-  if (x.status === "played") return;
+  if (x.status === "played") return x;
+  if (x.status === "postponed" && m.date >= today) {
+    // SAFF has given a postponed match a new date: it is back on the schedule
+    x.status = "upcoming";
+    (x.changes ||= []).push({ field: "status", from: ["Postponed", "مؤجلة"], to: ["Back on: " + label(m.date, m.time || x.time)[0], "عادت للجدول: " + label(m.date, m.time || x.time)[1]] });
+    changes.push(`back on ${x.home} v ${x.away} ${m.date}`);
+  }
   if (m.date !== x.date || (m.time && m.time !== x.time)) {
     const before = label(x.date, x.time), after = label(m.date, m.time || x.time);
     if (m.date !== x.date && !x.orig) x.orig = x.date;
@@ -213,6 +231,7 @@ function applyMatch(S, m, changes, fromLeaguePage) {
     changes.push(`moved ${x.home} v ${x.away}: ${x.date} ${x.time || ""} to ${m.date} ${m.time || ""}`);
     x.date = m.date; if (m.time) x.time = m.time;
   }
+  return x;
 }
 
 export { parseTable, parseMatches, teamMatcher, applyMatch, firstTeam };
