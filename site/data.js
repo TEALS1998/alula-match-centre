@@ -880,7 +880,7 @@ window.ALULA_DATA = {
     "w": 10,
     "d": 1,
     "l": 0,
-    "gf": 27,
+    "gf": 28,
     "ga": 6,
     "pts": 31,
     "asOfRound": 12
@@ -911,7 +911,7 @@ window.ALULA_DATA = {
       10,
       1,
       0,
-      27,
+      28,
       6
      ],
      [
@@ -1000,7 +1000,7 @@ window.ALULA_DATA = {
       5,
       4,
       18,
-      19
+      20
      ],
      [
       "الرائد",
